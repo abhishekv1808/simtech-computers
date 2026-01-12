@@ -6,3 +6,7 @@ exports.getHome = (req,res,next)=>{
 exports.getLaptops = (req,res,next)=>{
     res.render('../views/user/laptops',{pageTitle:'Laptops'});
 }
+
+exports.getStoreLocator = (req,res,next)=>{
+    res.render('../views/user/store-locator',{pageTitle:'Stores'});
+}
