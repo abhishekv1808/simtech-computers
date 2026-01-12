@@ -10,3 +10,7 @@ exports.getLaptops = (req,res,next)=>{
 exports.getStoreLocator = (req,res,next)=>{
     res.render('../views/user/store-locator',{pageTitle:'Stores'});
 }
+
+exports.getAboutUs = (req,res,next)=>{
+    res.render('../views/user/aboutUs',{pageTitle:'About Us'});
+}
