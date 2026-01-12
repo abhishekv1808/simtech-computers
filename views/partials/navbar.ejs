@@ -1,0 +1,274 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<header id="header-wrapper" class="fixed top-0 left-0 w-full z-[100] transition-all">
+    <nav class="bg-white border-b border-gray-100 backdrop-blur-md bg-white/95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20 gap-4">
+                
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center space-x-2 group">
+                        <div class="bg-emerald-500 p-1.5 rounded-lg group-hover:rotate-12 transition-transform duration-300">
+                            <i class="fas fa-laptop text-white text-lg"></i>
+                        </div>
+                        <span class="text-gray-900 text-2xl font-bold tracking-tighter uppercase">
+                            Lap<span class="text-emerald-500">Store</span>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex flex-grow max-w-xl lg:max-w-2xl px-4">
+                    <div class="relative w-full group">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 group-focus-within:text-emerald-500">
+                            <i class="fas fa-search text-sm"></i>
+                        </span>
+                        <input type="text" 
+                               class="block w-full pl-11 pr-4 py-2.5 bg-gray-100 border-none rounded-xl text-sm focus:bg-white focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none" 
+                               placeholder="Search for MacBook, Lenovo, Accessories...">
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3 lg:space-x-6">
+                    <button class="hidden lg:flex items-center text-gray-700 hover:text-emerald-600 font-bold text-sm transition-colors">
+                        <i class="fas fa-location-dot mr-2 text-emerald-500"></i>
+                        <span>Gurgaon</span>
+                        <i class="fas fa-chevron-down ml-1 text-[10px] text-gray-400"></i>
+                    </button>
+
+                    <a href="/login" class="bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2.5 px-6 rounded-xl transition-all active:scale-95 text-sm shadow-lg shadow-emerald-500/20">
+                        Login
+                    </a>
+
+                    <button id="menu-open" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-600">
+                        <i class="fas fa-bars-staggered"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <nav id="mini-nav" class="bg-white border-b border-gray-100 overflow-x-auto md:overflow-visible no-scrollbar shadow-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <ul class="flex items-center justify-start md:justify-center space-x-6 lg:space-x-10 h-11 whitespace-nowrap">
+                <li class="nav-item group relative">
+                    <a href="#" class="flex items-center text-[13px] font-bold text-gray-700 hover:text-emerald-500 transition-colors h-full">
+                        All <i class="fas fa-chevron-down ml-1 text-[10px] opacity-50 group-hover:rotate-180 transition-transform duration-300"></i>
+                    </a>
+                    <!-- Dropdown -->
+                    <div class="absolute top-full left-0 pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                        <div class="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                            <div class="p-2 space-y-1">
+                                <a href="/laptops" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    <i class="fas fa-laptop mr-2 text-emerald-500/50"></i> Laptops
+                                </a>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    <i class="fas fa-desktop mr-2 text-emerald-500/50"></i> Desktops
+                                </a>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    <i class="fas fa-headset mr-2 text-emerald-500/50"></i> Accessories
+                                </a>
+                                <div class="h-px bg-gray-100 my-1"></div>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-emerald-600 bg-emerald-50 hover:bg-emerald-100 transition-colors font-bold text-center">
+                                    View All Categories
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item group relative">
+                    <a href="#" class="flex items-center text-[13px] font-bold text-gray-700 hover:text-emerald-500 transition-colors h-full">
+                        Buy Refurbished <i class="fas fa-chevron-down ml-1 text-[10px] opacity-50 group-hover:rotate-180 transition-transform duration-300"></i>
+                    </a>
+                     <!-- Dropdown -->
+                     <div class="absolute top-full left-0 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                        <div class="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                            <div class="p-2 space-y-1">
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    Windows Laptops
+                                </a>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    MacBooks
+                                </a>
+                                <div class="h-px bg-gray-100 my-1"></div>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    Clearance Sale
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="#" class="text-[13px] font-bold text-gray-700 hover:text-emerald-500 transition-colors">Find New</a></li>
+                <li class="nav-item"><a href="#" class="text-[13px] font-bold text-gray-700 hover:text-emerald-500 transition-colors">Store Locator</a></li>
+                <li class="nav-item group relative">
+                    <a href="#" class="flex items-center text-[13px] font-bold text-gray-700 hover:text-emerald-500 transition-colors h-full">
+                        Warranty <i class="fas fa-chevron-down ml-1 text-[10px] opacity-50 group-hover:rotate-180 transition-transform duration-300"></i>
+                    </a>
+                     <!-- Dropdown -->
+                     <div class="absolute top-full right-0 md:left-0 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                        <div class="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                            <div class="p-2 space-y-1">
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    Check Warranty
+                                </a>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    Register Product
+                                </a>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    Claim Request
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item group relative">
+                    <a href="#" class="flex items-center text-[13px] font-bold text-gray-700 hover:text-emerald-500 transition-colors h-full">
+                        More <i class="fas fa-chevron-down ml-1 text-[10px] opacity-50 group-hover:rotate-180 transition-transform duration-300"></i>
+                    </a>
+                    <!-- Dropdown -->
+                    <div class="absolute top-full right-0 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                        <div class="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                            <div class="p-2 space-y-1">
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    Track Order
+                                </a>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    Support Center
+                                </a>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    Store Locations
+                                </a>
+                                <div class="h-px bg-gray-100 my-1"></div>
+                                <a href="#" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium">
+                                    About Us
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div id="mobile-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[110] hidden opacity-0"></div>
+<aside id="mobile-sidebar" class="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[120] shadow-2xl translate-x-full">
+    <div class="flex flex-col h-full">
+        <div class="p-6 flex justify-between items-center border-b">
+            <span class="text-xl font-bold italic">MENU</span>
+            <button id="menu-close" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="p-6 space-y-8 overflow-y-auto">
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Search..." class="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-xl outline-none">
+            </div>
+
+            <nav class="flex flex-col space-y-6">
+                <a href="#" class="mobile-link text-2xl font-bold text-gray-800">Buy Refurbished</a>
+                <a href="#" class="mobile-link text-2xl font-bold text-gray-800">Sell Your Laptop</a>
+                <a href="#" class="mobile-link text-2xl font-bold text-gray-800">Repair Center</a>
+                <a href="#" class="mobile-link text-2xl font-bold text-gray-800">My Orders</a>
+            </nav>
+        </div>
+
+        <div class="mt-auto p-6 bg-gray-50 border-t">
+            <p class="text-sm text-gray-500 mb-2">Selected City</p>
+            <button class="flex items-center font-bold text-gray-800">
+                <i class="fas fa-location-dot text-emerald-500 mr-2"></i> Gurgaon <i class="fas fa-chevron-right ml-auto text-xs opacity-40"></i>
+            </button>
+        </div>
+    </div>
+</aside>
+
+<div class="h-28 md:h-32"></div>
+
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    
+    
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if GSAP is loaded
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+    }
+
+    const header = document.getElementById('header-wrapper');
+    const menuOpen = document.getElementById('menu-open');
+    const menuClose = document.getElementById('menu-close');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    
+    let lastScroll = 0;
+
+    // Scroll Animation
+    if (header) {
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY || window.pageYOffset;
+
+            // Add shadow on scroll
+            if (currentScroll > 50) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+
+            // Smart Hide Logic
+            if (currentScroll > 150) {
+                if (currentScroll > lastScroll) {
+                    // Scrolling Down: Hide Main Nav, keep Mini Nav
+                    const mainNav = header.firstElementChild; 
+                    const offset = mainNav ? mainNav.offsetHeight : 80;
+                    
+                    if (typeof gsap !== 'undefined') {
+                        gsap.to(header, { y: -offset, duration: 0.4, ease: "power2.out" });
+                    }
+                } else {
+                    // Scrolling Up: Show everything
+                    if (typeof gsap !== 'undefined') {
+                        gsap.to(header, { y: 0, duration: 0.4, ease: "power2.out" });
+                    }
+                }
+            }
+            lastScroll = currentScroll;
+        });
+    }
+
+    // Sidebar Animation
+    if (typeof gsap !== 'undefined' && mobileOverlay && mobileSidebar) {
+        const sidebarTl = gsap.timeline({ paused: true });
+        
+        // Mobile Sidebar Animation
+        sidebarTl.to(mobileOverlay, { display: 'block', opacity: 1, duration: 0.2 })
+                 .to(mobileSidebar, { x: 0, duration: 0.4, ease: "expo.out" }, "-=0.1");
+
+        if (menuOpen) {
+            menuOpen.addEventListener('click', (e) => {
+                e.preventDefault();
+                sidebarTl.play();
+            });
+        }
+        
+        if (menuClose) {
+            menuClose.addEventListener('click', (e) => {
+                e.preventDefault();
+                sidebarTl.reverse();
+            });
+        }
+
+        // Close when clicking overlay
+        mobileOverlay.addEventListener('click', () => {
+             sidebarTl.reverse();
+        });
+    }
+});
+</script>
