@@ -1,0 +1,137 @@
+
+    <!-- Product Details Modal -->
+    <div id="productModal" class="relative z-[200] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        
+        <!-- Backdrop with Blur -->
+        <div class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm transition-all duration-300" onclick="closeModal()"></div>
+
+        <!-- Modal Panel Container -->
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                
+                <!-- Modal Panel -->
+                <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl ring-1 ring-black/5 transition-all w-full max-w-3xl selection:bg-blue-100">
+                    
+                    <div class="bg-white px-6 py-6 sm:px-8 sm:py-8">
+                        <!-- Header -->
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-900 tracking-tight" id="modal-brand-model"></h3>
+                                <p class="text-sm text-gray-500 mt-1 font-mono" id="modal-id"></p>
+                            </div>
+                            <button type="button" class="text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-full p-2 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="closeModal()">
+                                <i class="fas fa-times text-xl w-6 h-6 flex items-center justify-center"></i>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                            <!-- Left: Image -->
+                            <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                                <div class="relative w-full aspect-[4/3] bg-gray-50 rounded-xl overflow-hidden border border-gray-100 flex items-center justify-center group">
+                                     <img id="modal-image" src="" alt="Product Image" class="object-contain w-full h-full p-4 transition-transform duration-300 group-hover:scale-105">
+                                </div>
+                                <div class="mt-4 w-full flex items-center justify-between px-1">
+                                    <span class="text-sm font-medium text-gray-500">Current Price</span>
+                                    <span class="text-2xl font-bold text-blue-600 tracking-tight" id="modal-price"></span>
+                                </div>
+                            </div>
+
+                            <!-- Right: Details -->
+                            <div class="lg:col-span-7 flex flex-col h-full">
+                                
+                                <div class="space-y-6">
+                                    <!-- Specs Grid -->
+                                    <div>
+                                        <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">System Specifications</h5>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-100 hover:bg-blue-50/50 transition-colors">
+                                                <div class="text-xs text-gray-400 mb-1 flex items-center gap-1"><i class="fas fa-microchip text-[10px]"></i> Processor</div>
+                                                <div class="font-semibold text-gray-800 text-sm truncate" id="modal-cpu"></div>
+                                            </div>
+                                            <div class="p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-100 hover:bg-blue-50/50 transition-colors">
+                                                <div class="text-xs text-gray-400 mb-1 flex items-center gap-1"><i class="fas fa-memory text-[10px]"></i> RAM</div>
+                                                <div class="font-semibold text-gray-800 text-sm" id="modal-ram"></div>
+                                            </div>
+                                            <div class="p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-100 hover:bg-blue-50/50 transition-colors">
+                                                <div class="text-xs text-gray-400 mb-1 flex items-center gap-1"><i class="fas fa-hdd text-[10px]"></i> Storage</div>
+                                                <div class="font-semibold text-gray-800 text-sm" id="modal-storage"></div>
+                                            </div>
+                                            <div class="p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-100 hover:bg-blue-50/50 transition-colors">
+                                                <div class="text-xs text-gray-400 mb-1 flex items-center gap-1"><i class="fas fa-desktop text-[10px]"></i> Display</div>
+                                                <div class="font-semibold text-gray-800 text-sm truncate" id="modal-display"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-blue-100 hover:bg-blue-50/50 transition-colors">
+                                             <div class="text-xs text-gray-400 mb-1 flex items-center gap-1"><i class="fas fa-gamepad text-[10px]"></i> Graphics</div>
+                                             <div class="font-semibold text-gray-800 text-sm" id="modal-gpu"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="pt-4 border-t border-gray-100">
+                                        <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Description</h5>
+                                        <p class="text-sm text-gray-600 leading-relaxed max-h-32 overflow-y-auto pr-2 custom-scrollbar" id="modal-desc"></p>
+                                    </div>
+                                </div>
+
+                                <!-- Footer Action (Bottom of right col) -->
+                                <div class="mt-auto pt-8 flex justify-end gap-3">
+                                    <button onclick="closeModal()" class="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors">
+                                        Close
+                                    </button>
+                                    <a id="modal-edit-btn" href="#" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors inline-flex items-center">
+                                        <i class="fas fa-pen mr-2 text-xs"></i> Edit Laptop
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Scripts -->
+    <script>
+        function openModal(element) {
+            const laptop = JSON.parse(element.getAttribute('data-laptop'));
+            
+            // Populate Data
+            const displayImage = (laptop.imageUrls && laptop.imageUrls.length > 0) ? laptop.imageUrls[0] : (laptop.imageUrl || 'https://via.placeholder.com/150');
+            document.getElementById('modal-image').src = displayImage;
+            document.getElementById('modal-brand-model').textContent = `${laptop.brand} ${laptop.model}`;
+            document.getElementById('modal-id').textContent = `SKU: ${laptop._id}`;
+            document.getElementById('modal-price').textContent = `₹${laptop.price.toLocaleString('en-IN')}`;
+            document.getElementById('modal-desc').textContent = laptop.description;
+            
+            // Edit Button Link
+            const editBtn = document.getElementById('modal-edit-btn');
+            if (editBtn) {
+                editBtn.href = `/admin/edit-laptop/${laptop._id}?edit=true`;
+            }
+
+            // Specs
+            document.getElementById('modal-cpu').textContent = laptop.specifications.processor || '-';
+            document.getElementById('modal-ram').textContent = laptop.specifications.ram || '-';
+            document.getElementById('modal-storage').textContent = laptop.specifications.storage || '-';
+            document.getElementById('modal-display').textContent = laptop.specifications.display || '-';
+            document.getElementById('modal-gpu').textContent = laptop.specifications.graphics || '-';
+
+            // Show Modal
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+             const modal = document.getElementById('productModal');
+             modal.classList.add('hidden');
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>

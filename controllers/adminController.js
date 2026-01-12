@@ -1,0 +1,233 @@
+const Laptop = require('../models/laptop');
+const Admin = require('../models/admin');
+const bcrypt = require('bcryptjs');
+
+exports.getLogin = (req, res, next) => {
+    res.render('admin/login', {
+        pageTitle: 'Admin Login',
+        errorMessage: null
+    });
+};
+
+exports.postLogin = async (req, res, next) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    try {
+        const admin = await Admin.findOne({ email: email });
+        if (!admin) {
+            return res.render('admin/login', {
+                pageTitle: 'Admin Login',
+                errorMessage: 'Invalid email or password.'
+            });
+        }
+        const doMatch = await bcrypt.compare(password, admin.password);
+        if (doMatch) {
+            req.session.isLoggedIn = true;
+            req.session.admin = admin;
+            return req.session.save(err => {
+                console.log(err);
+                res.redirect('/admin/dashboard');
+            });
+        }
+        res.render('admin/login', {
+            pageTitle: 'Admin Login',
+            errorMessage: 'Invalid email or password.'
+        });
+    } catch (err) {
+        console.log(err);
+        res.redirect('/admin/login');
+    }
+};
+
+exports.postLogout = (req, res, next) => {
+    req.session.destroy(err => {
+        console.log(err);
+        res.redirect('/admin/login');
+    });
+};
+
+exports.getDashboard = async (req, res, next) => {
+    try {
+        const laptops = await Laptop.find().sort({ createdAt: -1 });
+        const totalLaptops = laptops.length;
+        const recentLaptops = laptops.slice(0, 5);
+        
+        // Calculate total inventory value
+        const totalValue = laptops.reduce((acc, curr) => acc + curr.price, 0);
+        
+        // Calculate unique brands
+        const uniqueBrands = [...new Set(laptops.map(l => l.brand))].length;
+
+        res.render('admin/admin-portal', {
+            pageTitle: 'Admin Dashboard',
+            laptops: laptops,
+            totalLaptops: totalLaptops,
+            recentLaptops: recentLaptops,
+            totalValue: totalValue,
+            uniqueBrands: uniqueBrands,
+            path: '/admin/dashboard'
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+exports.getAddLaptop = (req, res, next) => {
+    res.render('admin/edit-laptop', {
+        pageTitle: 'Add Laptop',
+        editing: false,
+        path: '/admin/add-laptop'
+    });
+};
+
+exports.postAddLaptop = async (req, res, next) => {
+    const brand = req.body.brand;
+    const model = req.body.model;
+    const price = req.body.price;
+    const mrp = req.body.mrp;
+    const description = req.body.description;
+    
+    let imageUrls = req.body.imageUrls;
+    if (!Array.isArray(imageUrls)) {
+        imageUrls = [imageUrls];
+    }
+    // Filter out empty strings
+    imageUrls = imageUrls.filter(url => url.trim() !== '');
+
+    const stockQuantity = req.body.stockQuantity;
+    const status = req.body.status;
+    const specs = {
+        processor: req.body.processor,
+        ram: req.body.ram,
+        storage: req.body.storage,
+        display: req.body.display,
+        graphics: req.body.graphics
+    };
+
+    const laptop = new Laptop({
+        brand: brand,
+        model: model,
+        price: price,
+        mrp: mrp,
+        description: description,
+        imageUrls: imageUrls,
+        stockQuantity: stockQuantity,
+        status: status,
+        specifications: specs
+    });
+
+    try {
+        await laptop.save();
+        console.log('Created Laptop');
+        res.redirect('/admin/dashboard');
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+exports.getEditLaptop = async (req, res, next) => {
+    const editMode = req.query.edit;
+    if (!editMode) {
+        return res.redirect('/');
+    }
+    const laptopId = req.params.laptopId;
+    try {
+        const laptop = await Laptop.findById(laptopId);
+        if (!laptop) {
+            return res.redirect('/');
+        }
+        res.render('admin/edit-laptop', {
+            pageTitle: 'Edit Laptop',
+            editing: editMode,
+            laptop: laptop,
+            path: '/admin/edit-laptop'
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+exports.postEditLaptop = async (req, res, next) => {
+    const laptopId = req.body.laptopId;
+    const updatedBrand = req.body.brand;
+    const updatedModel = req.body.model;
+    const updatedPrice = req.body.price;
+    const updatedMrp = req.body.mrp;
+    const updatedDesc = req.body.description;
+    
+    let updatedImageUrls = req.body.imageUrls;
+    if (!Array.isArray(updatedImageUrls)) {
+        updatedImageUrls = [updatedImageUrls];
+    }
+    updatedImageUrls = updatedImageUrls.filter(url => url.trim() !== '');
+
+    const updatedStockQuantity = req.body.stockQuantity;
+    const updatedStatus = req.body.status;
+    const updatedSpecs = {
+        processor: req.body.processor,
+        ram: req.body.ram,
+        storage: req.body.storage,
+        display: req.body.display,
+        graphics: req.body.graphics
+    };
+
+    try {
+        const laptop = await Laptop.findById(laptopId);
+        laptop.brand = updatedBrand;
+        laptop.model = updatedModel;
+        laptop.price = updatedPrice;
+        laptop.mrp = updatedMrp;
+        laptop.description = updatedDesc;
+        laptop.imageUrls = updatedImageUrls;
+        laptop.stockQuantity = updatedStockQuantity;
+        laptop.status = updatedStatus;
+        laptop.specifications = updatedSpecs;
+        await laptop.save();
+        console.log('UPDATED LAPTOP!');
+        res.redirect('/admin/dashboard');
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+exports.postDeleteLaptop = async (req, res, next) => {
+    const laptopId = req.body.laptopId;
+    try {
+        await Laptop.findByIdAndDelete(laptopId);
+        console.log('DESTROYED LAPTOP');
+        res.redirect('/admin/dashboard');
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+exports.getInventory = async (req, res, next) => {
+    try {
+        const laptops = await Laptop.find().sort({ brand: 1 });
+        res.render('admin/inventory', {
+            pageTitle: 'Inventory Management',
+            laptops: laptops,
+            path: '/admin/inventory'
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+exports.postUpdateInventory = async (req, res, next) => {
+    const laptopId = req.body.laptopId;
+    const newStock = req.body.stockQuantity;
+    const newStatus = req.body.status;
+
+    try {
+        const laptop = await Laptop.findById(laptopId);
+        laptop.stockQuantity = newStock;
+        laptop.status = newStatus;
+        await laptop.save();
+        res.redirect('/admin/inventory');
+    } catch (err) {
+        console.log(err);
+        res.redirect('/admin/inventory');
+    }
+};
