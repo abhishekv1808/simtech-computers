@@ -54,7 +54,7 @@ exports.getDashboard = async (req, res, next) => {
         const recentLaptops = laptops.slice(0, 5);
         
         // Calculate total inventory value
-        const totalValue = laptops.reduce((acc, curr) => acc + curr.price, 0);
+        const totalValue = laptops.reduce((acc, curr) => acc + (curr.price * curr.stockQuantity), 0);
         
         // Calculate unique brands
         const uniqueBrands = [...new Set(laptops.map(l => l.brand))].length;
@@ -84,22 +84,22 @@ exports.getAddLaptop = (req, res, next) => {
 exports.postAddLaptop = async (req, res, next) => {
     const brand = req.body.brand;
     const model = req.body.model;
+    const category = req.body.category;
     const price = req.body.price;
     const mrp = req.body.mrp;
     const description = req.body.description;
     
-    let imageUrls = req.body.imageUrls;
-    if (!Array.isArray(imageUrls)) {
-        imageUrls = [imageUrls];
+    // Handle Cloudinary Uploads
+    let imageUrls = [];
+    if (req.files && req.files.length > 0) {
+        imageUrls = req.files.map(file => file.path);
     }
-    // Filter out empty strings
-    imageUrls = imageUrls.filter(url => url.trim() !== '');
 
     const stockQuantity = req.body.stockQuantity;
     const status = req.body.status;
     const specs = {
         processor: req.body.processor,
-        ram: req.body.ram,
+        ram: req.body.ram, // Ensure these keys match the form input names
         storage: req.body.storage,
         display: req.body.display,
         graphics: req.body.graphics
@@ -108,6 +108,7 @@ exports.postAddLaptop = async (req, res, next) => {
     const laptop = new Laptop({
         brand: brand,
         model: model,
+        category: category,
         price: price,
         mrp: mrp,
         description: description,
@@ -152,15 +153,27 @@ exports.postEditLaptop = async (req, res, next) => {
     const laptopId = req.body.laptopId;
     const updatedBrand = req.body.brand;
     const updatedModel = req.body.model;
+    const updatedCategory = req.body.category;
     const updatedPrice = req.body.price;
     const updatedMrp = req.body.mrp;
     const updatedDesc = req.body.description;
     
-    let updatedImageUrls = req.body.imageUrls;
-    if (!Array.isArray(updatedImageUrls)) {
-        updatedImageUrls = [updatedImageUrls];
+    // Handle New Uploads
+    let newImageUrls = [];
+    if (req.files && req.files.length > 0) {
+        newImageUrls = req.files.map(file => file.path);
     }
-    updatedImageUrls = updatedImageUrls.filter(url => url.trim() !== '');
+
+    // Handle Existing Images (passed as hidden inputs or checkboxes from the view)
+    // If 'existingImages' is undefined (user deleted all), start empty.
+    // If it's a string (one image), make array. 
+    let existingImages = req.body.existingImages || [];
+    if (!Array.isArray(existingImages)) {
+        existingImages = [existingImages];
+    }
+    
+    // Combine old and new
+    const finalImageUrls = existingImages.concat(newImageUrls);
 
     const updatedStockQuantity = req.body.stockQuantity;
     const updatedStatus = req.body.status;
@@ -176,10 +189,11 @@ exports.postEditLaptop = async (req, res, next) => {
         const laptop = await Laptop.findById(laptopId);
         laptop.brand = updatedBrand;
         laptop.model = updatedModel;
+        laptop.category = updatedCategory;
         laptop.price = updatedPrice;
         laptop.mrp = updatedMrp;
         laptop.description = updatedDesc;
-        laptop.imageUrls = updatedImageUrls;
+        laptop.imageUrls = finalImageUrls; // Update with combined list
         laptop.stockQuantity = updatedStockQuantity;
         laptop.status = updatedStatus;
         laptop.specifications = updatedSpecs;

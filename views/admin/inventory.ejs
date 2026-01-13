@@ -99,7 +99,14 @@
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors"><%= laptop.brand %> <%= laptop.model %></div>
-                                            <div class="text-xs text-gray-500 font-mono mt-0.5"><%= laptop._id %></div>
+                                            <div class="flex items-center gap-2 mt-1">
+                                                <% if (laptop.category) { %>
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
+                                                        <%= laptop.category %>
+                                                    </span>
+                                                <% } %>
+                                                <div class="text-xs text-gray-500 font-mono"><%= laptop._id %></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>

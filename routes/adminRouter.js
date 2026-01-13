@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const adminController = require('../controllers/adminController');
 const isAuth = require('../middleware/is-auth');
+const { parser } = require('../utils/cloudinary');
 
 const router = express.Router();
 
@@ -21,13 +22,14 @@ router.get('/dashboard', isAuth, adminController.getDashboard);
 router.get('/add-laptop', isAuth, adminController.getAddLaptop);
 
 // /admin/add-laptop => POST
-router.post('/add-laptop', isAuth, adminController.postAddLaptop);
+router.post('/add-laptop', isAuth, parser.array('images', 5), adminController.postAddLaptop);
 
 // /admin/edit-laptop/:laptopId => GET
 router.get('/edit-laptop/:laptopId', isAuth, adminController.getEditLaptop);
 
 // /admin/edit-laptop => POST
-router.post('/edit-laptop', isAuth, adminController.postEditLaptop);
+router.post('/edit-laptop', isAuth, parser.array('images', 5), adminController.postEditLaptop);
+
 
 // /admin/delete-laptop => POST
 router.post('/delete-laptop', isAuth, adminController.postDeleteLaptop);

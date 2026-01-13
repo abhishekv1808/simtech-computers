@@ -238,12 +238,6 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-900 text-sm md:text-base uppercase tracking-wide">Excellent Condition</h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">8GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">256GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
                                 <p class="text-xs md:text-sm text-gray-500 font-medium">Laptops</p>
                             </div>
                         </div>
@@ -255,12 +249,6 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-900 text-sm md:text-base uppercase tracking-wide">6 Months Warranty</h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">8GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">256GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
                                 <p class="text-xs md:text-sm text-gray-500 font-medium">Replacement Guarantee</p>
                             </div>
                         </div>
@@ -272,12 +260,6 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-900 text-sm md:text-base uppercase tracking-wide">1 Year Warranty</h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">8GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">256GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
                                 <p class="text-xs md:text-sm text-gray-500 font-medium">Service Coverage</p>
                             </div>
                         </div>
@@ -375,7 +357,10 @@
                 <!-- APPLE SECTION -->
                 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Used Apple Laptops</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-3">
+                            <img src="/images/apple-logo.png" alt="Apple" class="w-8 h-8 object-contain">
+                            Used Apple Laptops
+                        </h2>
                         <div class="flex items-center gap-4">
                             <div class="flex gap-2">
                                 <button aria-label="Scroll Left" onclick="scrollContainer('apple-scroll', 'left')" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300 active:scale-95">
@@ -385,221 +370,93 @@
                                     <i class="fas fa-chevron-right text-xs"></i>
                                 </button>
                             </div>
-                            <a href="/laptops" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
+                            <a href="/brand/Apple" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
                         </div>
                     </div>
                     
                     <div id="apple-scroll" class="flex overflow-x-auto gap-4 pb-6 snap-x snap-mandatory no-scrollbar scroll-smooth">
-                        <!-- Card 1 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
+                        <% const appleLaptops = laptops ? laptops.filter(l => l.brand === 'Apple') : []; %>
+                        <% if(appleLaptops.length > 0) { %>
+                            <% appleLaptops.forEach((laptop) => { 
+                                const discount = laptop.mrp - laptop.price;
+                                const discountPercent = Math.round((discount / laptop.mrp) * 100);
+                            %>
+                            <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
+                                <!-- Header Badges -->
+                                <div class="flex justify-between items-start w-full relative z-10 mb-2">
+                                    <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                        <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
+                                        <span>SIMTECH ASSURED</span>
+                                    </div>
+                                    <% if(laptop.stockQuantity < 5 && laptop.stockQuantity > 0) { %>
+                                    <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
+                                        <%= laptop.stockQuantity %> left
+                                    </div>
+                                    <% } %>
                                 </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    3 left
+    
+                                <!-- Image -->
+                                <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+                                    <% if (laptop.stockQuantity === 0) { %>
+                                        <div class="absolute top-3 left-1/2 -translate-x-1/2 bg-red-600/95 text-white text-sm font-bold px-4 py-1 rounded-md shadow-md -skew-x-6 transform pointer-events-none">
+                                            Out of Stock
+                                        </div>
+                                    <% } %>
+                                    <img src="<%= laptop.imageUrls[0] %>" alt="<%= laptop.brand %> <%= laptop.model %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
                                 </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/workstations/mobile-workstations/precision/15-5570/media-gallery/workstation-precision-15-5570-gallery-5.psd?fmt=png-alpha&pscan=auto&scl=1&hei=402&wid=656&qlt=100,1&resMode=sharp2&size=656,402&chrss=full" alt="MacBook Pro" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹45,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Apple MacBook Pro M1 Pro 14-inch (16GB/512GB)
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">M1 Pro</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Lowest Price</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.9</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+    
+                                <!-- Discount Tag -->
+                                <div class="mb-2">
+                                    <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹<%= discount.toLocaleString('en-IN') %> OFF</span>
                                 </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-33%</span>
-                                <span class="text-lg font-bold text-gray-900">₹89,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹1,34,900</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
+    
+                                <!-- Title -->
+                                <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
+                                    <%= laptop.brand %> <%= laptop.model %> <%= laptop.specifications.processor %>
+                                </h3>
+                                <!-- Specs -->
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <% if(laptop.specifications.ram) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.ram %></span>
+                                    <% } %>
+                                    <% if(laptop.specifications.storage) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.storage %></span>
+                                    <% } %>
+                                    <% if(laptop.specifications.processor) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.processor %></span>
+                                    <% } %>
                                 </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    4 left
+    
+                                <!-- Rating Section -->
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Lowest Price</span>
+                                    <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
+                                        <span class="text-xs font-bold text-gray-700">4.9</span>
+                                        <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=500" alt="MacBook Air" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹30,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Apple MacBook Air M1 (8GB/256GB)
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">8GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">256GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">M1 Chip</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Lowest Price</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.8</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+    
+                                <!-- Price Section -->
+                                <div class="flex items-center gap-2">
+                                    <span class="text-red-500 text-sm font-medium">-<%= discountPercent %>%</span>
+                                    <span class="text-lg font-bold text-gray-900">₹<%= laptop.price.toLocaleString('en-IN') %></span>
+                                    <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹<%= laptop.mrp.toLocaleString('en-IN') %></span>
                                 </div>
                             </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-41%</span>
-                                <span class="text-lg font-bold text-gray-900">₹42,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹72,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    2 left
-                                </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1531297461136-82lw8u8z5g2?auto=format&fit=crop&q=80&w=500" alt="MacBook Pro" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹25,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Apple MacBook Pro Intel i7 (16GB/512GB)
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i7</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Lowest Price</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.5</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-31%</span>
-                                <span class="text-lg font-bold text-gray-900">₹54,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹79,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    5 left
-                                </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&q=80&w=500" alt="Dell Inspiron" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹18,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell Inspiron 15 5000 Series i5
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">8GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Student Pick</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.3</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-30%</span>
-                                <span class="text-lg font-bold text-gray-900">₹42,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹60,999</span>
-                            </div>
-                        </div>
+                            <% }) %>
+                        <% } else { %>
+                            <div class="p-4 text-gray-500 font-medium">No Apple laptops currently available</div>
+                        <% } %>
                     </div>
                 </section>
 
                 <!-- DELL SECTION -->
                 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Used Dell Laptops</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-3">
+                            <img src="/images/dell-logo.png" alt="Dell" class="w-8 h-8 object-contain">
+                            Used Dell Laptops
+                        </h2>
                         <div class="flex items-center gap-4">
                             <div class="flex gap-2">
                                 <button aria-label="Scroll Left" onclick="scrollContainer('dell-scroll', 'left')" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300 active:scale-95">
@@ -609,221 +466,90 @@
                                     <i class="fas fa-chevron-right text-xs"></i>
                                 </button>
                             </div>
-                            <a href="/laptops" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
+                            <a href="/brand/Dell" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
                         </div>
                     </div>
                     
                     <div id="dell-scroll" class="flex overflow-x-auto gap-4 pb-6 snap-x snap-mandatory no-scrollbar scroll-smooth">
-                        <!-- Card 1 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
+                        <% const dellLaptops = laptops ? laptops.filter(l => l.brand === 'Dell') : []; %>
+                        <% if(dellLaptops.length > 0) { %>
+                            <% dellLaptops.forEach((laptop) => { 
+                                const discount = laptop.mrp - laptop.price;
+                                const discountPercent = Math.round((discount / laptop.mrp) * 100);
+                            %>
+                            <a href="/laptop/<%= laptop._id %>" class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
+                                <!-- Header Badges -->
+                                <div class="flex justify-between items-start w-full relative z-10 mb-2">
+                                    <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                        <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
+                                        <span>SIMTECH ASSURED</span>
+                                    </div>
+                                    <% if(laptop.stockQuantity < 5 && laptop.stockQuantity > 0) { %>
+                                    <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
+                                        <%= laptop.stockQuantity %> left
+                                    </div>
+                                    <% } %>
                                 </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    3 left
+    
+                                <!-- Image -->
+                                <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+                                    <img src="<%= laptop.imageUrls[0] %>" alt="<%= laptop.brand %> <%= laptop.model %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
                                 </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1593642632823-8f7853674697?auto=format&fit=crop&q=80&w=500" alt="Dell XPS" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹35,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell XPS 13 9310 Intel i7 11th Gen
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i7</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Premium</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.7</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+    
+                                <!-- Discount Tag -->
+                                <div class="mb-2">
+                                    <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹<%= discount.toLocaleString('en-IN') %> OFF</span>
                                 </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-35%</span>
-                                <span class="text-lg font-bold text-gray-900">₹64,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹99,999</span>
-                            </div>
-                        </div>
-
-                         <!-- Card 2 -->
-                         <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
+    
+                                <!-- Title -->
+                                <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
+                                    <%= laptop.brand %> <%= laptop.model %> <%= laptop.specifications.processor %>
+                                </h3>
+                                <!-- Specs -->
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <% if(laptop.specifications.ram) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.ram %></span>
+                                    <% } %>
+                                    <% if(laptop.specifications.storage) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.storage %></span>
+                                    <% } %>
+                                    <% if(laptop.specifications.processor) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.processor %></span>
+                                    <% } %>
                                 </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    6 left
+    
+                                <!-- Rating Section -->
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Business</span>
+                                    <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
+                                        <span class="text-xs font-bold text-gray-700">4.7</span>
+                                        <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=500" alt="Dell Latitude" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹20,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell Latitude 7420 Business Series
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Business</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.5</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+    
+                                <!-- Price Section -->
+                                <div class="flex items-center gap-2">
+                                    <span class="text-red-500 text-sm font-medium">-<%= discountPercent %>%</span>
+                                    <span class="text-lg font-bold text-gray-900">₹<%= laptop.price.toLocaleString('en-IN') %></span>
+                                    <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹<%= laptop.mrp.toLocaleString('en-IN') %></span>
                                 </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-36%</span>
-                                <span class="text-lg font-bold text-gray-900">₹34,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹54,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    1 left
-                                </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1622313697962-411db18c7c9b?auto=format&fit=crop&q=80&w=500" alt="Dell G15" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹25,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell G15 Gaming Ryzen 7 RTX 3050
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">1TB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Ryzen 7</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-purple-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Gaming</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.6</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-29%</span>
-                                <span class="text-lg font-bold text-gray-900">₹59,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹84,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    2 left
-                                </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&q=80&w=500" alt="Dell Inspiron" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹18,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell Inspiron 15 5000 Series i5
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">8GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Student Pick</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.3</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-30%</span>
-                                <span class="text-lg font-bold text-gray-900">₹42,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹60,999</span>
-                            </div>
-                        </div>
+                            </a>
+                            <% }) %>
+                        <% } else { %>
+                            <div class="p-4 text-gray-500 font-medium">No Dell laptops currently available</div>
+                        <% } %>
                     </div>
                 </section>
 
-                <!-- LENOVO & HP SECTION -->
+
+
+                <!-- HP SECTION -->
                 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight">HP & Lenovo Deals</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-3">
+                            <img src="/images/hp-logo.png" onerror="this.style.display='none'" alt="" class="w-8 h-8 object-contain">
+                            Used HP Laptops
+                        </h2>
                         <div class="flex items-center gap-4">
                             <div class="flex gap-2">
                                 <button aria-label="Scroll Left" onclick="scrollContainer('hp-scroll', 'left')" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300 active:scale-95">
@@ -833,438 +559,169 @@
                                     <i class="fas fa-chevron-right text-xs"></i>
                                 </button>
                             </div>
-                            <a href="/laptops" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
+                            <a href="/brand/HP" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
                         </div>
                     </div>
                     
                     <div id="hp-scroll" class="flex overflow-x-auto gap-4 pb-6 snap-x snap-mandatory no-scrollbar scroll-smooth">
-                         <!-- Card 1 -->
-                         <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
+                        <% const hpLaptops = laptops ? laptops.filter(l => l.brand === 'HP') : []; %>
+                        <% if(hpLaptops.length > 0) { %>
+                            <% hpLaptops.forEach((laptop) => { 
+                                const discount = laptop.mrp - laptop.price;
+                                const discountPercent = Math.round((discount / laptop.mrp) * 100);
+                            %>
+                            <a href="/laptop/<%= laptop._id %>" class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
+                                <!-- Header Badges -->
+                                <div class="flex justify-between items-start w-full relative z-10 mb-2">
+                                    <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                        <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
+                                        <span>SIMTECH ASSURED</span>
+                                    </div>
+                                    <% if(laptop.stockQuantity < 5 && laptop.stockQuantity > 0) { %>
+                                    <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
+                                        <%= laptop.stockQuantity %> left
+                                    </div>
+                                    <% } %>
                                 </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    3 left
+    
+                                <!-- Image -->
+                                <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+                                    <img src="<%= laptop.imageUrls[0] %>" alt="<%= laptop.brand %> <%= laptop.model %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
                                 </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1593642632823-8f7853674697?auto=format&fit=crop&q=80&w=500" alt="Dell XPS" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹35,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell XPS 13 9310 Intel i7 11th Gen
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i7</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Premium</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.7</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+    
+                                <!-- Discount Tag -->
+                                <div class="mb-2">
+                                    <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹<%= discount.toLocaleString('en-IN') %> OFF</span>
                                 </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-35%</span>
-                                <span class="text-lg font-bold text-gray-900">₹64,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹99,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
+    
+                                <!-- Title -->
+                                <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
+                                    <%= laptop.brand %> <%= laptop.model %> <%= laptop.specifications.processor %>
+                                </h3>
+                                <!-- Specs -->
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <% if(laptop.specifications.ram) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.ram %></span>
+                                    <% } %>
+                                    <% if(laptop.specifications.storage) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.storage %></span>
+                                    <% } %>
+                                    <% if(laptop.specifications.processor) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.processor %></span>
+                                    <% } %>
                                 </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    6 left
+    
+                                <!-- Rating Section -->
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Top Rated</span>
+                                    <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
+                                        <span class="text-xs font-bold text-gray-700">4.7</span>
+                                        <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=500" alt="Dell Latitude" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹20,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell Latitude 7420 Business Series
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Business</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.5</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+    
+                                <!-- Price Section -->
+                                <div class="flex items-center gap-2">
+                                    <span class="text-red-500 text-sm font-medium">-<%= discountPercent %>%</span>
+                                    <span class="text-lg font-bold text-gray-900">₹<%= laptop.price.toLocaleString('en-IN') %></span>
+                                    <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹<%= laptop.mrp.toLocaleString('en-IN') %></span>
                                 </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-36%</span>
-                                <span class="text-lg font-bold text-gray-900">₹34,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹54,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    1 left
-                                </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1622313697962-411db18c7c9b?auto=format&fit=crop&q=80&w=500" alt="Dell G15" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹25,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell G15 Gaming Ryzen 7 RTX 3050
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">1TB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Ryzen 7</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-purple-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Gaming</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.6</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-29%</span>
-                                <span class="text-lg font-bold text-gray-900">₹59,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹84,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    2 left
-                                </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&q=80&w=500" alt="Dell Inspiron" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹18,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell Inspiron 15 5000 Series i5
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">8GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Student Pick</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.3</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-30%</span>
-                                <span class="text-lg font-bold text-gray-900">₹42,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹60,999</span>
-                            </div>
-                        </div>
+                            </a>
+                            <% }) %>
+                        <% } else { %>
+                            <div class="p-4 text-gray-500 font-medium">No HP laptops currently available</div>
+                        <% } %>
                     </div>
                 </section>
 
-                <!-- LENOVO & HP SECTION -->
+                <!-- LENOVO SECTION -->
                 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight">HP & Lenovo Deals</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-3">
+                            <img src="/images/lenovo-logo.png" onerror="this.style.display='none'" alt="" class="w-8 h-8 object-contain">
+                            Used Lenovo Laptops
+                        </h2>
                         <div class="flex items-center gap-4">
                             <div class="flex gap-2">
-                                <button aria-label="Scroll Left" onclick="scrollContainer('hp-scroll', 'left')" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300 active:scale-95">
+                                <button aria-label="Scroll Left" onclick="scrollContainer('lenovo-scroll', 'left')" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300 active:scale-95">
                                     <i class="fas fa-chevron-left text-xs"></i>
                                 </button>
-                                <button aria-label="Scroll Right" onclick="scrollContainer('hp-scroll', 'right')" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300 active:scale-95">
+                                <button aria-label="Scroll Right" onclick="scrollContainer('lenovo-scroll', 'right')" class="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300 active:scale-95">
                                     <i class="fas fa-chevron-right text-xs"></i>
                                 </button>
                             </div>
-                            <a href="/laptops" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
+                            <a href="/brand/Lenovo" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
                         </div>
                     </div>
                     
-                    <div id="hp-scroll" class="flex overflow-x-auto gap-4 pb-6 snap-x snap-mandatory no-scrollbar scroll-smooth">
-                         <!-- Card 1 -->
-                         <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
+                    <div id="lenovo-scroll" class="flex overflow-x-auto gap-4 pb-6 snap-x snap-mandatory no-scrollbar scroll-smooth">
+                        <% const lenovoLaptops = laptops ? laptops.filter(l => l.brand === 'Lenovo') : []; %>
+                        <% if(lenovoLaptops.length > 0) { %>
+                            <% lenovoLaptops.forEach((laptop) => { 
+                                const discount = laptop.mrp - laptop.price;
+                                const discountPercent = Math.round((discount / laptop.mrp) * 100);
+                            %>
+                            <a href="/laptop/<%= laptop._id %>" class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
+                                <!-- Header Badges -->
+                                <div class="flex justify-between items-start w-full relative z-10 mb-2">
+                                    <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                        <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
+                                        <span>SIMTECH ASSURED</span>
+                                    </div>
+                                    <% if(laptop.stockQuantity < 5 && laptop.stockQuantity > 0) { %>
+                                    <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
+                                        <%= laptop.stockQuantity %> left
+                                    </div>
+                                    <% } %>
                                 </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    3 left
+    
+                                <!-- Image -->
+                                <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+                                    <img src="<%= laptop.imageUrls[0] %>" alt="<%= laptop.brand %> <%= laptop.model %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
                                 </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1593642632823-8f7853674697?auto=format&fit=crop&q=80&w=500" alt="Dell XPS" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹35,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell XPS 13 9310 Intel i7 11th Gen
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i7</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Premium</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.7</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+    
+                                <!-- Discount Tag -->
+                                <div class="mb-2">
+                                    <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹<%= discount.toLocaleString('en-IN') %> OFF</span>
                                 </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-35%</span>
-                                <span class="text-lg font-bold text-gray-900">₹64,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹99,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
+    
+                                <!-- Title -->
+                                <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
+                                    <%= laptop.brand %> <%= laptop.model %> <%= laptop.specifications.processor %>
+                                </h3>
+                                <!-- Specs -->
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <% if(laptop.specifications.ram) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.ram %></span>
+                                    <% } %>
+                                    <% if(laptop.specifications.storage) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.storage %></span>
+                                    <% } %>
+                                    <% if(laptop.specifications.processor) { %>
+                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.processor %></span>
+                                    <% } %>
                                 </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    6 left
+    
+                                <!-- Rating Section -->
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Business Class</span>
+                                    <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
+                                        <span class="text-xs font-bold text-gray-700">4.8</span>
+                                        <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=500" alt="Dell Latitude" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹20,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell Latitude 7420 Business Series
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Business</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.5</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+    
+                                <!-- Price Section -->
+                                <div class="flex items-center gap-2">
+                                    <span class="text-red-500 text-sm font-medium">-<%= discountPercent %>%</span>
+                                    <span class="text-lg font-bold text-gray-900">₹<%= laptop.price.toLocaleString('en-IN') %></span>
+                                    <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹<%= laptop.mrp.toLocaleString('en-IN') %></span>
                                 </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-36%</span>
-                                <span class="text-lg font-bold text-gray-900">₹34,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹54,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    1 left
-                                </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1622313697962-411db18c7c9b?auto=format&fit=crop&q=80&w=500" alt="Dell G15" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹25,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell G15 Gaming Ryzen 7 RTX 3050
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">1TB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Ryzen 7</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-purple-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Gaming</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.6</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-29%</span>
-                                <span class="text-lg font-bold text-gray-900">₹59,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹84,999</span>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
-                            <!-- Header Badges -->
-                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                    <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                    2 left
-                                </div>
-                            </div>
-
-                            <!-- Image -->
-                            <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&q=80&w=500" alt="Dell Inspiron" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                            </div>
-
-                            <!-- Discount Tag -->
-                            <div class="mb-2">
-                                <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹18,000 OFF</span>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                Dell Inspiron 15 5000 Series i5
-                            </h3>
-                            <!-- Specs -->
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">8GB RAM</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Intel Core i5</span>
-                            </div>
-
-                            <!-- Rating Section -->
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Student Pick</span>
-                                <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                    <span class="text-xs font-bold text-gray-700">4.3</span>
-                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                </div>
-                            </div>
-
-                            <!-- Price Section -->
-                            <div class="flex items-center gap-2">
-                                <span class="text-red-500 text-sm font-medium">-30%</span>
-                                <span class="text-lg font-bold text-gray-900">₹42,999</span>
-                                <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹60,999</span>
-                            </div>
-                        </div>
+                            </a>
+                            <% }) %>
+                        <% } else { %>
+                            <div class="p-4 text-gray-500 font-medium">No Lenovo laptops currently available</div>
+                        <% } %>
                     </div>
                 </section>
 
@@ -1460,7 +917,7 @@
                 <!-- Background Glows -->
                 <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px]"></div>
                 <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px]"></div>
-s
+
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div class="flex items-end justify-between mb-10 text-white">
                         <div>
@@ -1811,21 +1268,49 @@ s
             <!-- STORES SECTION END -->
 
             <!-- CTA Section Start-->
-            <section class="py-20 bg-emerald-50">
-            <div class="max-w-4xl mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6 font-inter">Ready to upgrade your tech?</h2>
-                <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Visit one of our stores in Bangalore or Chennai to experience the quality firsthand. We promise you won't be able to tell it's refurbished.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="/laptops" class="inline-flex items-center justify-center bg-gray-900 text-white font-bold py-4 px-8 rounded-full hover:bg-emerald-600 transition-all shadow-lg hover:shadow-xl">
-                        Browse Laptops
-                    </a>
-                    <a href="/store-locator" class="inline-flex items-center justify-center bg-white text-gray-900 border border-gray-200 font-bold py-4 px-8 rounded-full hover:bg-gray-50 transition-all shadow-sm hover:shadow-md">
-                        Find a Store
-                    </a>
-                </div>
-            </div>
+            <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                 <div class="relative w-full rounded-[32px] overflow-hidden bg-[#20B2AA] shadow-2xl">
+                     <div class="flex flex-col md:flex-row items-stretch justify-between">
+                         
+                         <!-- Left Content -->
+                         <div class="w-full md:w-1/2 p-8 md:p-16 z-10 flex flex-col justify-center">
+                             <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                                 Unlock Premium Quality
+                             </h2>
+                             <p class="text-white/90 text-lg mb-8 font-medium">
+                                 Sell your old device | Buy top-quality refurbished laptops | Get expert repairs
+                             </p>
+                             
+                             <div class="flex flex-wrap gap-4">
+                                 <a href="/laptops" class="flex items-center gap-3 bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-900 transition-all shadow-lg hover:-translate-y-1">
+                                     <i class="fas fa-shopping-bag text-2xl"></i>
+                                     <div class="text-left">
+                                         <div class="text-[10px] uppercase font-bold tracking-wider opacity-80">Shop Now</div>
+                                         <div class="text-sm font-bold">Buy Refurbished</div>
+                                     </div>
+                                 </a>
+                                 
+                                 <a href="/contact-us" class="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all shadow-lg hover:-translate-y-1">
+                                    <i class="fas fa-headset text-2xl"></i>
+                                    <div class="text-left">
+                                        <div class="text-[10px] uppercase font-bold tracking-wider opacity-80">Need Help?</div>
+                                        <div class="text-sm font-bold">Talk to Expert</div>
+                                    </div>
+                                </a>
+                             </div>
+                         </div>
+ 
+                         <!-- Right Image -->
+                         <div class="w-full md:w-1/2 relative min-h-[250px] md:min-h-[250px] flex items-end justify-center md:justify-end">
+                             <!-- Gradient overlay/fade for mobile if needed, or decor -->
+                             <div class="absolute inset-0 bg-gradient-to-t from-[#20B2AA] via-transparent to-transparent md:hidden z-10"></div>
+                             
+                             <img src="/images/girl-holding-laptop.png" 
+                                  alt="Happy Customer" 
+                                  class="h-[90%] md:h-[95%] w-auto object-contain object-bottom md:mr-10 relative z-0">
+                         </div>
+                     </div>
+                 </div>
             </section>
             <!-- CTA Section End-->
 

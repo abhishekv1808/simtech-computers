@@ -1,0 +1,254 @@
+<%- include('../partials/head.ejs') %>
+
+<body>
+    <%- include('../partials/navbar.ejs') %>
+
+    <main class="bg-gray-50 min-h-screen py-8">
+        <!-- Breadcrumb -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 text-sm text-gray-500">
+            <a href="/" class="hover:text-emerald-600">Home</a> 
+            <span class="mx-2">></span> 
+            <a href="/laptops" class="hover:text-emerald-600">Buy Refurbished Laptop</a>
+            <span class="mx-2">></span>
+            <a href="/brand/<%= laptop.brand %>" class="hover:text-emerald-600"><%= laptop.brand %></a>
+            <span class="mx-2">></span>
+            <span class="text-gray-900 font-medium"><%= laptop.model %></span>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    
+                    <!-- Left Column: Images -->
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <!-- Thumbnails -->
+                            <div class="hidden md:flex flex-col gap-3 w-20">
+                                <% if(laptop.imageUrls && laptop.imageUrls.length > 0) { %>
+                                    <% laptop.imageUrls.forEach((url, index) => { %>
+                                        <div class="cursor-pointer border-2 <%= index === 0 ? 'border-emerald-500' : 'border-gray-200' %> rounded-lg overflow-hidden hover:border-emerald-500 transition-colors" onclick="changeImage('<%= url %>', this)">
+                                            <img src="<%= url %>" alt="Thumbnail" class="w-full h-16 object-contain p-1">
+                                        </div>
+                                    <% }) %>
+                                <% } %>
+                            </div>
+                            
+                            <!-- Main Image -->
+                            <div class="flex-1 relative bg-gray-50 rounded-xl p-8 flex items-center justify-center min-h-[400px] border border-gray-100">
+                                <!-- Badge -->
+                                <div class="absolute top-4 left-4 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-2 z-10">
+                                    <i class="fas fa-check-circle text-emerald-400"></i>
+                                    <span>SIMTECH ASSURED</span>
+                                </div>
+                                <div class="absolute top-4 right-4 text-gray-400 hover:text-red-500 cursor-pointer transition-colors">
+                                    <i class="far fa-heart text-xl"></i>
+                                </div>
+                                
+                                <img id="main-image" src="<%= laptop.imageUrls[0] %>" alt="<%= laptop.brand %> <%= laptop.model %>" class="max-w-full max-h-[350px] object-contain mix-blend-multiply transition-transform duration-300 hover:scale-105">
+                            </div>
+                        </div>
+
+                        <!-- Mobile Thumbnails (Horizontal) -->
+                        <div class="flex gap-3 overflow-x-auto md:hidden pb-2 no-scrollbar">
+                            <% if(laptop.imageUrls && laptop.imageUrls.length > 0) { %>
+                                <% laptop.imageUrls.forEach((url, index) => { %>
+                                    <div class="flex-shrink-0 w-16 h-16 cursor-pointer border-2 <%= index === 0 ? 'border-emerald-500' : 'border-gray-200' %> rounded-lg overflow-hidden" onclick="changeImage('<%= url %>', this)">
+                                        <img src="<%= url %>" alt="Thumbnail" class="w-full h-full object-contain p-1">
+                                    </div>
+                                <% }) %>
+                            <% } %>
+                        </div>
+                        
+                        <!-- Warranty Info Banner -->
+                        <div class="bg-black text-white p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm font-medium">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-gray-800 px-2 py-0.5 rounded">32</span>
+                                <span>Points Quality Check</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-400 font-bold">15</span>
+                                <span>Days Replacement</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-400 font-bold">06</span>
+                                <span>Months Warranty</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Details -->
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900 mb-2">
+                            <%= laptop.brand %> <%= laptop.model %> (<%= laptop.specifications.processor %>) - Refurbished
+                        </h1>
+                        <p class="text-gray-500 text-sm mb-4">Simtech Warranty, Good, <%= laptop.specifications.ram %> / <%= laptop.specifications.storage %></p>
+
+                        <!-- Rating -->
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="bg-emerald-600 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
+                                4.5 <i class="fas fa-star text-[10px]"></i>
+                            </span>
+                            <span class="text-sm text-gray-500">4 reviews</span>
+                        </div>
+
+                        <!-- Price Info -->
+                        <div class="mb-6">
+                            <p class="text-red-500 text-xs font-semibold mb-1">● Online Exclusive Price!</p>
+                            <div class="flex items-end gap-3">
+                                <span class="text-3xl font-bold text-gray-900">₹<%= laptop.price.toLocaleString('en-IN') %></span>
+                                <span class="text-lg text-gray-400 line-through mb-1">₹<%= laptop.mrp.toLocaleString('en-IN') %></span>
+                                <span class="text-lg font-bold text-red-500 mb-1"><%= discountPercent %>% OFF</span>
+                            </div>
+                        </div>
+
+                        <!-- Warranty Add-on -->
+                        <div class="mb-6 bg-emerald-50 border border-emerald-100 rounded-lg p-3 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="font-bold text-gray-900">Extended Warranty</span>
+                                    <p class="text-xs text-gray-600">Add 6 Months for ₹1,499</p>
+                                </div>
+                            </div>
+                            <button class="bg-black text-white text-xs font-bold px-4 py-2 rounded hover:bg-gray-800 transition-colors">
+                                Add
+                            </button>
+                        </div>
+
+                        <!-- Add to Cart / Buy Actions -->
+                        <div class="flex gap-4 mb-8">
+                             <!-- To distinguish functionality later, for now just buttons -->
+                            <button class="flex-1 bg-white border border-gray-300 text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="flex-1 bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors">
+                                Buy Now
+                            </button>
+                        </div>
+                        
+                        <hr class="border-gray-200 mb-6">
+
+                        <!-- Specifications Selection (Visual only mostly since specific product) -->
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-3">Condition</h3>
+                                <div class="flex gap-3">
+                                    <button class="px-4 py-2 border rounded-lg text-sm text-gray-400 border-gray-200 cursor-not-allowed" disabled>Fair</button>
+                                    <button class="px-4 py-2 border-2 border-emerald-500 bg-emerald-50 text-emerald-700 font-bold rounded-lg text-sm relative">
+                                        Good
+                                        <i class="fas fa-check-circle absolute -top-2 -right-2 text-emerald-500 bg-white rounded-full"></i>
+                                    </button>
+                                    <button class="px-4 py-2 border rounded-lg text-sm text-gray-400 border-gray-200 cursor-not-allowed" disabled>Superb</button>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-3">Storage</h3>
+                                <button class="px-4 py-2 border-2 border-emerald-500 bg-emerald-50 text-emerald-700 font-bold rounded-lg text-sm">
+                                    <%= laptop.specifications.ram %> / <%= laptop.specifications.storage %>
+                                </button>
+                            </div>
+
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-3">Operating System</h3>
+                                <button class="px-4 py-2 border-2 border-emerald-500 bg-emerald-50 text-emerald-700 font-bold rounded-lg text-sm">
+                                    Windows 10/11 Pro
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Key Features/Description -->
+                        <div class="mt-8">
+                            <h3 class="font-bold text-gray-900 mb-3">Product Description</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                <%= laptop.description %>
+                            </p>
+                            
+                            <h3 class="font-bold text-gray-900 mb-3">Technical Specifications</h3>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div class="bg-gray-50 p-3 rounded">
+                                    <span class="text-gray-500 block text-xs">Processor</span>
+                                    <span class="font-medium text-gray-900"><%= laptop.specifications.processor %></span>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded">
+                                    <span class="text-gray-500 block text-xs">RAM</span>
+                                    <span class="font-medium text-gray-900"><%= laptop.specifications.ram %></span>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded">
+                                    <span class="text-gray-500 block text-xs">Storage</span>
+                                    <span class="font-medium text-gray-900"><%= laptop.specifications.storage %></span>
+                                </div>
+                                <div class="bg-gray-50 p-3 rounded">
+                                    <span class="text-gray-500 block text-xs">Display</span>
+                                    <span class="font-medium text-gray-900"><%= laptop.specifications.display %></span>
+                                </div>
+                                <% if(laptop.specifications.graphics) { %>
+                                <div class="bg-gray-50 p-3 rounded">
+                                    <span class="text-gray-500 block text-xs">Graphics</span>
+                                    <span class="font-medium text-gray-900"><%= laptop.specifications.graphics %></span>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Similar Products -->
+            <% if(similarLaptops && similarLaptops.length > 0) { %>
+            <div class="mt-12 mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Similar Products</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <% similarLaptops.forEach(item => { 
+                        const itemDiscount = item.mrp - item.price;
+                        const itemDiscountPercent = Math.round((itemDiscount / item.mrp) * 100);
+                    %>
+                    <a href="/laptop/<%= item._id %>" class="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-all duration-300 group">
+                        <div class="relative h-40 mb-4 flex items-center justify-center bg-gray-50 rounded-lg p-2">
+                             <img src="<%= item.imageUrls[0] %>" alt="<%= item.brand %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform group-hover:scale-105">
+                             <div class="absolute top-2 left-2 bg-emerald-50 text-emerald-600 text-[10px] font-bold px-2 py-1 rounded">
+                                 <%= itemDiscountPercent %>% OFF
+                             </div>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-sm mb-2 line-clamp-2 min-h-[40px]">
+                            <%= item.brand %> <%= item.model %>
+                        </h3>
+                        <div class="flex items-center gap-2 mb-2">
+                             <span class="text-lg font-bold text-gray-900">₹<%= item.price.toLocaleString('en-IN') %></span>
+                             <span class="text-xs text-gray-400 line-through">₹<%= item.mrp.toLocaleString('en-IN') %></span>
+                        </div>
+                        <div class="flex gap-2 text-[10px] text-gray-500">
+                             <span class="bg-gray-100 px-2 py-1 rounded"><%= item.specifications.ram %></span>
+                             <span class="bg-gray-100 px-2 py-1 rounded"><%= item.specifications.storage %></span>
+                        </div>
+                    </a>
+                    <% }) %>
+                </div>
+            </div>
+            <% } %>
+
+        </div>
+    </main>
+    
+    <script>
+        function changeImage(url, element) {
+            // Update main image
+            document.getElementById('main-image').src = url;
+            
+            // Update active state of thumbnails
+            // Desktop
+            const desktopThumbnails = element.parentElement.children;
+            for(let thumb of desktopThumbnails) {
+                thumb.classList.remove('border-emerald-500');
+                thumb.classList.add('border-gray-200');
+            }
+            element.classList.remove('border-gray-200');
+            element.classList.add('border-emerald-500');
+            
+            // If called from mobile, we might need to sync or just ignore cross-sync for simplicity now
+        }
+    </script>
+</body>
+</html>

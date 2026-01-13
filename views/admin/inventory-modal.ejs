@@ -25,16 +25,24 @@
                         </div>
 
                         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                            <!-- Left: Image -->
-                            <div class="lg:col-span-5 flex flex-col items-center justify-center">
-                                <div class="relative w-full aspect-[4/3] bg-gray-50 rounded-xl overflow-hidden border border-gray-100 flex items-center justify-center group">
+                            <!-- Left: Image Gallery -->
+                            <div class="lg:col-span-5 flex flex-col items-center">
+                                <!-- Main Image (Large) -->
+                                <div class="relative w-full aspect-[4/3] bg-gray-50 rounded-xl overflow-hidden border border-gray-100 flex items-center justify-center group mb-4">
                                      <img id="modal-image" src="" alt="Product Image" class="object-contain w-full h-full p-4 transition-transform duration-300 group-hover:scale-105">
                                 </div>
+                                
+                                <!-- Thumbnails Grid (Hidden if only 1 image) -->
+                                <div id="modal-thumbnails" class="grid grid-cols-4 gap-2 w-full hidden">
+                                    <!-- Populated by JS -->
+                                </div>
+
                                 <div class="mt-4 w-full flex items-center justify-between px-1">
                                     <span class="text-sm font-medium text-gray-500">Current Price</span>
                                     <span class="text-2xl font-bold text-blue-600 tracking-tight" id="modal-price"></span>
                                 </div>
                             </div>
+
 
                             <!-- Right: Details -->
                             <div class="lg:col-span-7 flex flex-col h-full">
@@ -98,10 +106,41 @@
             const laptop = JSON.parse(element.getAttribute('data-laptop'));
             
             // Populate Data
-            const displayImage = (laptop.imageUrls && laptop.imageUrls.length > 0) ? laptop.imageUrls[0] : (laptop.imageUrl || 'https://via.placeholder.com/150');
-            document.getElementById('modal-image').src = displayImage;
+            // Handle Images
+            const images = (laptop.imageUrls && laptop.imageUrls.length > 0) ? laptop.imageUrls : [laptop.imageUrl || 'https://via.placeholder.com/150'];
+            
+            // Set Main Image
+            const mainImg = document.getElementById('modal-image');
+            mainImg.src = images[0];
+
+            // Setup Thumbnails
+            const thumbContainer = document.getElementById('modal-thumbnails');
+            thumbContainer.innerHTML = '';
+            
+            if (images.length > 1) {
+                thumbContainer.classList.remove('hidden');
+                images.forEach((imgUrl, index) => {
+                    const thumbDiv = document.createElement('div');
+                    thumbDiv.className = `cursor-pointer border-2 rounded-md overflow-hidden aspect-square flex items-center justify-center p-1 hover:border-blue-500 transition-colors ${index === 0 ? 'border-blue-500' : 'border-transparent'}`;
+                    thumbDiv.onclick = function() {
+                        mainImg.src = imgUrl;
+                        // Update active border
+                        Array.from(thumbContainer.children).forEach(c => c.classList.remove('border-blue-500', 'border-transparent'));
+                        Array.from(thumbContainer.children).forEach(c => c.classList.add('border-transparent'));
+                        this.classList.remove('border-transparent');
+                        this.classList.add('border-blue-500');
+                    };
+                    thumbDiv.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-contain">`;
+                    thumbContainer.appendChild(thumbDiv);
+                });
+            } else {
+                thumbContainer.classList.add('hidden');
+            }
+
             document.getElementById('modal-brand-model').textContent = `${laptop.brand} ${laptop.model}`;
-            document.getElementById('modal-id').textContent = `SKU: ${laptop._id}`;
+            const category = laptop.category || 'Standard';
+            document.getElementById('modal-id').innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 mr-2 border border-blue-100">${category}</span> <span class="text-gray-400">SKU: ${laptop._id}</span>`;
+
             document.getElementById('modal-price').textContent = `₹${laptop.price.toLocaleString('en-IN')}`;
             document.getElementById('modal-desc').textContent = laptop.description;
             

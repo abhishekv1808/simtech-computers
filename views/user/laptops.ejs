@@ -134,176 +134,103 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             
-                            <!-- Card 1: Apple -->
-                            <div class="product-card bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 flex flex-col relative group h-full" 
-                                 data-category="Standard Laptop" 
-                                 data-brand="Apple" 
-                                 data-processor="m_series" 
-                                 data-price="146999">
-                                
-                                <!-- Header Badges -->
-                                <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                    <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                        <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                        <span>SIMTECH ASSURED</span>
+<% if (laptops && laptops.length > 0) { %>
+                                <% laptops.forEach(laptop => { 
+                                    let processorValue = 'other';
+                                    
+                                    // Map backend category to frontend filter value
+                                    let categoryValue = 'Standard Laptop'; // Default
+                                    if (laptop.category) {
+                                        if (laptop.category === 'Standard') categoryValue = 'Standard Laptop';
+                                        else if (laptop.category === 'Corporate') categoryValue = 'Corporate Series';
+                                        else categoryValue = laptop.category; // 'Workstation' and 'Gaming' match
+                                    }
+
+                                    if(laptop.specifications && laptop.specifications.processor) {
+                                        const proc = laptop.specifications.processor.toLowerCase();
+                                        if (proc.includes('i3')) processorValue = 'i3';
+                                        else if (proc.includes('i5')) processorValue = 'i5';
+                                        else if (proc.includes('i7')) processorValue = 'i7';
+                                        else if (proc.includes('m1') || proc.includes('m2') || proc.includes('m3')) processorValue = 'm_series';
+                                    }
+                                    
+                                    const discount = laptop.mrp - laptop.price;
+                                    const discountPercent = Math.round((discount / laptop.mrp) * 100);
+                                %>
+                                <a href="/laptop/<%= laptop._id %>" class="product-card bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 flex flex-col relative group h-full" 
+                                     data-category="<%= categoryValue %>" 
+                                     data-brand="<%= laptop.brand %>" 
+                                     data-processor="<%= processorValue %>" 
+                                     data-price="<%= laptop.price %>">
+                                    
+                                    <!-- Header Badges -->
+                                    <div class="flex justify-between items-start w-full relative z-10 mb-2">
+                                        <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                            <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
+                                            <span>SIMTECH ASSURED</span>
+                                        </div>
+                                        <% if(laptop.stockQuantity < 5 && laptop.stockQuantity > 0) { %>
+                                        <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
+                                            <%= laptop.stockQuantity %> left
+                                        </div>
+                                        <% } %>
                                     </div>
-                                    <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                        1 left
+
+                                    <!-- Image -->
+                                    <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+                                        <% if (laptop.stockQuantity === 0) { %>
+                                            <div class="absolute top-3 left-1/2 -translate-x-1/2 bg-red-600/95 text-white text-sm font-bold px-4 py-1 rounded-md shadow-md -skew-x-6 transform pointer-events-none">
+                                                Out of Stock
+                                            </div>
+                                        <% } %>
+                                        <img src="<%= laptop.imageUrls[0] %>" alt="<%= laptop.brand %> <%= laptop.model %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
                                     </div>
-                                </div>
 
-                                <!-- Image -->
-                                <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=500" alt="MacBook Pro" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                                </div>
-
-                                <!-- Discount Tag -->
-                                <div class="mb-2">
-                                    <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹58,000 OFF</span>
-                                </div>
-
-                                <!-- Title -->
-                                <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                    Apple MacBook Pro 2023 A2992 (Apple M3 Pro Chip 14 Inch)
-                                </h3>
-
-                                <!-- Specs -->
-                                <div class="flex flex-wrap gap-2 mb-3">
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">M3 Pro</span>
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">18GB RAM</span>
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">512GB SSD</span>
-                                </div>
-
-                                <!-- Rating Section -->
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Certified</span>
-                                    <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                        <span class="text-xs font-bold text-gray-700">5.0</span>
-                                        <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                    <!-- Discount Tag -->
+                                    <div class="mb-2">
+                                        <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹<%= discount.toLocaleString('en-IN') %> OFF</span>
                                     </div>
-                                </div>
 
-                                <!-- Price Section -->
-                                <div class="flex items-center gap-2">
-                                    <span class="text-red-500 text-sm font-medium">-28%</span>
-                                    <span class="text-lg font-bold text-gray-900">₹1,46,999</span>
-                                    <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹2,04,999</span>
-                                </div>
-                            </div>
+                                    <!-- Title -->
+                                    <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
+                                        <%= laptop.brand %> <%= laptop.model %> (<%= laptop.specifications.processor %>)
+                                    </h3>
 
-                            <!-- Card 2: Lenovo -->
-                            <div class="product-card bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 flex flex-col relative group h-full" 
-                                 data-category="Corporate Series" 
-                                 data-brand="Lenovo" 
-                                 data-processor="i7" 
-                                 data-price="64999">
-                                
-                                <!-- Header Badges -->
-                                <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                    <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                        <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                        <span>SIMTECH ASSURED</span>
+                                    <!-- Specs -->
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <% if(laptop.specifications.processor) { %>
+                                        <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.processor %></span>
+                                        <% } %>
+                                        <% if(laptop.specifications.ram) { %>
+                                        <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.ram %></span>
+                                        <% } %>
+                                        <% if(laptop.specifications.storage) { %>
+                                        <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.storage %></span>
+                                        <% } %>
                                     </div>
-                                    <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                        2 left
+
+                                    <!-- Rating Section -->
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Certified</span>
+                                        <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
+                                            <span class="text-xs font-bold text-gray-700">5.0</span>
+                                            <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <!-- Image -->
-                                <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&q=80&w=500" alt="ThinkPad X1" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                                </div>
-
-                                <!-- Discount Tag -->
-                                <div class="mb-2">
-                                    <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹45,000 OFF</span>
-                                </div>
-
-                                <!-- Title -->
-                                <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                    Lenovo ThinkPad X1 Carbon Gen 9 (Intel i7 11th Gen)
-                                </h3>
-
-                                <!-- Specs -->
-                                <div class="flex flex-wrap gap-2 mb-3">
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Core i7</span>
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">16GB RAM</span>
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">1TB SSD</span>
-                                </div>
-
-                                <!-- Rating Section -->
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Corporate</span>
-                                    <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                        <span class="text-xs font-bold text-gray-700">4.8</span>
-                                        <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                    <!-- Price Section -->
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-red-500 text-sm font-medium">-<%= discountPercent %>%</span>
+                                        <span class="text-lg font-bold text-gray-900">₹<%= laptop.price.toLocaleString('en-IN') %></span>
+                                        <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹<%= laptop.mrp.toLocaleString('en-IN') %></span>
                                     </div>
+                                </a>
+                                <% }) %>
+                            <% } else { %>
+                                <div class="col-span-3 text-center py-10">
+                                    <h3 class="text-xl font-bold text-gray-700">No laptops found</h3>
                                 </div>
-
-                                <!-- Price Section -->
-                                <div class="flex items-center gap-2">
-                                    <span class="text-red-500 text-sm font-medium">-41%</span>
-                                    <span class="text-lg font-bold text-gray-900">₹64,999</span>
-                                    <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹1,10,000</span>
-                                </div>
-                            </div>
-
-                            <!-- Card 3: Dell -->
-                            <div class="product-card bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 flex flex-col relative group h-full" 
-                                 data-category="Workstation" 
-                                 data-brand="Dell" 
-                                 data-processor="i9" 
-                                 data-price="89999">
-                                
-                                <!-- Header Badges -->
-                                <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                    <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                        <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                        <span>SIMTECH ASSURED</span>
-                                    </div>
-                                    <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                        1 left
-                                    </div>
-                                </div>
-
-                                <!-- Image -->
-                                <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&q=80&w=500" alt="Dell Precision" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                                </div>
-
-                                <!-- Discount Tag -->
-                                <div class="mb-2">
-                                    <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹30,000 OFF</span>
-                                </div>
-
-                                <!-- Title -->
-                                <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                    Dell Precision 5550 (Intel Core i9 10th Gen)
-                                </h3>
-
-                                <!-- Specs -->
-                                <div class="flex flex-wrap gap-2 mb-3">
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">Core i9</span>
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">32GB RAM</span>
-                                    <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">1TB SSD</span>
-                                </div>
-
-                                <!-- Rating Section -->
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Workstation</span>
-                                    <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                        <span class="text-xs font-bold text-gray-700">4.7</span>
-                                        <i class="fas fa-star text-yellow-400 text-[10px]"></i>
-                                    </div>
-                                </div>
-
-                                <!-- Price Section -->
-                                <div class="flex items-center gap-2">
-                                    <span class="text-red-500 text-sm font-medium">-30%</span>
-                                    <span class="text-lg font-bold text-gray-900">₹89,999</span>
-                                    <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹1,19,999</span>
-                                </div>
-                            </div>
+                            <% } %>
                             
                         </div>
                     </div>
@@ -314,4 +241,76 @@
         <%- include('../partials/footer.ejs') %>
 
     </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const priceRange = document.getElementById('price-range');
+            const priceValue = document.getElementById('price-value');
+            const productCards = document.querySelectorAll('.product-card');
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const clearBtn = document.querySelector('button.text-emerald-600'); // the "Clear All" button
+
+            // Initial price display
+            const updatePriceDisplay = (val) => {
+                priceValue.textContent = `₹${parseInt(val).toLocaleString('en-IN')}`;
+            };
+
+            // Filter Logic
+            const filterProducts = () => {
+                const maxPrice = parseInt(priceRange.value);
+                
+                // Get checked values for each category
+                const checkedCategories = Array.from(document.querySelectorAll('.filter-category:checked')).map(cb => cb.value);
+                const checkedBrands = Array.from(document.querySelectorAll('.filter-brand:checked')).map(cb => cb.value);
+                const checkedProcessors = Array.from(document.querySelectorAll('.filter-processor:checked')).map(cb => cb.value);
+
+                productCards.forEach(card => {
+                    const price = parseInt(card.dataset.price);
+                    const category = card.dataset.category;
+                    const brand = card.dataset.brand;
+                    const processor = card.dataset.processor;
+
+                    // Check matches
+                    const matchesPrice = price <= maxPrice;
+                    const matchesCategory = checkedCategories.length === 0 || checkedCategories.includes(category);
+                    const matchesBrand = checkedBrands.length === 0 || checkedBrands.includes(brand);
+                    const matchesProcessor = checkedProcessors.length === 0 || checkedProcessors.includes(processor);
+
+                    // Show or Hide
+                    if (matchesPrice && matchesCategory && matchesBrand && matchesProcessor) {
+                        card.classList.remove('hidden');
+                        card.classList.add('flex'); // restore flex display
+                    } else {
+                        card.classList.add('hidden');
+                        card.classList.remove('flex');
+                    }
+                });
+            };
+
+            // Event Listeners
+            priceRange.addEventListener('input', (e) => {
+                updatePriceDisplay(e.target.value);
+                filterProducts();
+            });
+
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', filterProducts);
+            });
+
+            if(clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    // Reset Checkboxes
+                    checkboxes.forEach(cb => cb.checked = false);
+                    // Reset Price to default (or max) - let's set to max to show all
+                    priceRange.value = priceRange.max;
+                    updatePriceDisplay(priceRange.max);
+                    // Trigger filter
+                    filterProducts();
+                });
+            }
+
+            // Initialization: Set display to match initial slider value
+            updatePriceDisplay(priceRange.value);
+        });
+    </script>
 </html>
