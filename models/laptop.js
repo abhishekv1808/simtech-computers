@@ -48,7 +48,8 @@ const laptopSchema = new Schema({
         ram: String,
         storage: String,
         display: String,
-        graphics: String
+        graphics: String,
+        os: String
     },
     createdAt: {
         type: Date,

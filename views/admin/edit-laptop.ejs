@@ -255,7 +255,22 @@
                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 pl-1" for="display">Display</label>
                             <input class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white focus:bg-white" id="display" type="text" name="display" value="<%= editing ? laptop.specifications.display : '' %>" placeholder="e.g. 15.6 inch 4K OLED">
                         </div>
-                        <div class="md:col-span-2 group">
+                        <div class="group">
+                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 pl-1" for="os">Operating System</label>
+                             <div class="relative">
+                                 <select class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white focus:bg-white appearance-none cursor-pointer" id="os" name="os" required>
+                                     <option value="" disabled <%= !editing ? 'selected' : '' %>>Select OS</option>
+                                     <% const osOptions = ['Windows 10', 'Windows 10 Pro', 'Windows 11', 'Windows 11 Pro', 'Mac OS']; %>
+                                     <% osOptions.forEach(os => { %>
+                                         <option value="<%= os %>" <%= editing && laptop.specifications.os === os ? 'selected' : '' %>><%= os %></option>
+                                     <% }) %>
+                                 </select>
+                                 <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
+                                     <i class="fas fa-chevron-down text-xs"></i>
+                                 </div>
+                             </div>
+                        </div>
+                        <div class="group">
                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 pl-1" for="graphics">Graphics Card</label>
                             <input class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50 hover:bg-white focus:bg-white" id="graphics" type="text" name="graphics" value="<%= editing ? laptop.specifications.graphics : '' %>" placeholder="e.g. NVIDIA GeForce RTX 3060 6GB">
                         </div>

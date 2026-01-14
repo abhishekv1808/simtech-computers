@@ -74,6 +74,14 @@
                                 <span>Months Warranty</span>
                             </div>
                         </div>
+
+                         <!-- Product Description (Moved to Left Column) -->
+                         <div class="mt-8 pt-6 border-t border-gray-100">
+                             <h3 class="font-bold text-gray-900 mb-3">Product Description</h3>
+                             <p class="text-gray-600 text-sm leading-relaxed">
+                                 <%= laptop.description %>
+                             </p>
+                         </div>
                     </div>
 
                     <!-- Right Column: Details -->
@@ -154,18 +162,13 @@
                             <div>
                                 <h3 class="font-bold text-gray-900 mb-3">Operating System</h3>
                                 <button class="px-4 py-2 border-2 border-emerald-500 bg-emerald-50 text-emerald-700 font-bold rounded-lg text-sm">
-                                    Windows 10/11 Pro
+                                    <%= laptop.specifications.os || 'Windows 10 / 11' %>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Key Features/Description -->
+                        <!-- Technical Specifications (Right Column) -->
                         <div class="mt-8">
-                            <h3 class="font-bold text-gray-900 mb-3">Product Description</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                                <%= laptop.description %>
-                            </p>
-                            
                             <h3 class="font-bold text-gray-900 mb-3">Technical Specifications</h3>
                             <div class="grid grid-cols-2 gap-4 text-sm">
                                 <div class="bg-gray-50 p-3 rounded">
@@ -184,6 +187,10 @@
                                     <span class="text-gray-500 block text-xs">Display</span>
                                     <span class="font-medium text-gray-900"><%= laptop.specifications.display %></span>
                                 </div>
+                                <div class="bg-gray-50 p-3 rounded">
+                                    <span class="text-gray-500 block text-xs">Operating System</span>
+                                    <span class="font-medium text-gray-900"><%= laptop.specifications.os || 'N/A' %></span>
+                                </div>
                                 <% if(laptop.specifications.graphics) { %>
                                 <div class="bg-gray-50 p-3 rounded">
                                     <span class="text-gray-500 block text-xs">Graphics</span>
@@ -196,32 +203,67 @@
                 </div>
             </div>
             
-            <!-- Similar Products -->
+            <!-- Similar Products (You May Also Like) -->
             <% if(similarLaptops && similarLaptops.length > 0) { %>
             <div class="mt-12 mb-12">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Similar Products</h2>
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">You May Also Like</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <% similarLaptops.forEach(item => { 
                         const itemDiscount = item.mrp - item.price;
                         const itemDiscountPercent = Math.round((itemDiscount / item.mrp) * 100);
                     %>
-                    <a href="/laptop/<%= item._id %>" class="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-all duration-300 group">
-                        <div class="relative h-40 mb-4 flex items-center justify-center bg-gray-50 rounded-lg p-2">
-                             <img src="<%= item.imageUrls[0] %>" alt="<%= item.brand %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform group-hover:scale-105">
-                             <div class="absolute top-2 left-2 bg-emerald-50 text-emerald-600 text-[10px] font-bold px-2 py-1 rounded">
-                                 <%= itemDiscountPercent %>% OFF
-                             </div>
+                    <a href="/laptop/<%= item._id %>" class="bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 flex flex-col relative group">
+                        
+                        <!-- Header Badges -->
+                        <div class="flex justify-between items-start w-full relative z-10 mb-2">
+                            <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
+                                <span>SIMTECH ASSURED</span>
+                            </div>
+                            <% if(item.stockQuantity < 5 && item.stockQuantity > 0) { %>
+                            <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
+                                <%= item.stockQuantity %> left
+                            </div>
+                            <% } %>
                         </div>
-                        <h3 class="font-bold text-gray-900 text-sm mb-2 line-clamp-2 min-h-[40px]">
+
+                        <!-- Image -->
+                        <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+                             <img src="<%= item.imageUrls[0] %>" alt="<%= item.brand %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
+                        </div>
+
+                        <!-- Discount Tag -->
+                        <div class="mb-2">
+                            <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹<%= itemDiscount.toLocaleString('en-IN') %> OFF</span>
+                        </div>
+
+                        <!-- Title -->
+                        <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
                             <%= item.brand %> <%= item.model %>
                         </h3>
-                        <div class="flex items-center gap-2 mb-2">
-                             <span class="text-lg font-bold text-gray-900">₹<%= item.price.toLocaleString('en-IN') %></span>
-                             <span class="text-xs text-gray-400 line-through">₹<%= item.mrp.toLocaleString('en-IN') %></span>
+
+                        <!-- Specs -->
+                        <div class="flex flex-wrap gap-2 mb-3">
+                             <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= item.specifications.ram %></span>
+                             <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= item.specifications.storage %></span>
+                             <% if(item.specifications.processor) { %>
+                             <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= item.specifications.processor %></span>
+                             <% } %>
                         </div>
-                        <div class="flex gap-2 text-[10px] text-gray-500">
-                             <span class="bg-gray-100 px-2 py-1 rounded"><%= item.specifications.ram %></span>
-                             <span class="bg-gray-100 px-2 py-1 rounded"><%= item.specifications.storage %></span>
+
+                        <!-- Rating Section -->
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
+                                <span class="text-xs font-bold text-gray-700">4.8</span>
+                                <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                            </div>
+                        </div>
+
+                        <!-- Price Section -->
+                        <div class="flex items-center gap-2">
+                             <span class="text-red-500 text-sm font-medium">-<%= itemDiscountPercent %>%</span>
+                             <span class="text-lg font-bold text-gray-900">₹<%= item.price.toLocaleString('en-IN') %></span>
+                             <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹<%= item.mrp.toLocaleString('en-IN') %></span>
                         </div>
                     </a>
                     <% }) %>
@@ -231,6 +273,8 @@
 
         </div>
     </main>
+
+    <%- include('../partials/footer.ejs') %>
     
     <script>
         function changeImage(url, element) {

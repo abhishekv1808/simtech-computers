@@ -32,6 +32,19 @@ app.use(
 app.use('/admin', adminRouter);
 app.use(userRouter);
 
+app.use((error, req, res, next) => {
+  console.log(error);
+  const status = error.statusCode || 500;
+  const message = error.message;
+  res.status(status).send(`
+      <div style="font-family: sans-serif; text-align: center; padding: 50px;">
+          <h1>Server Error</h1>
+          <p>${message}</p>
+          <a href="/">Go Home</a>
+      </div>
+  `);
+});
+
 const port = 3005;
 
 mongoose.connect(mongodbURL).then(async (result)=>{

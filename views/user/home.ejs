@@ -381,7 +381,7 @@
                                 const discount = laptop.mrp - laptop.price;
                                 const discountPercent = Math.round((discount / laptop.mrp) * 100);
                             %>
-                            <div class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
+                            <a href="/laptop/<%= laptop._id %>" class="min-w-[280px] md:min-w-[300px] bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 snap-start flex flex-col relative group">
                                 <!-- Header Badges -->
                                 <div class="flex justify-between items-start w-full relative z-10 mb-2">
                                     <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
@@ -442,7 +442,7 @@
                                     <span class="text-lg font-bold text-gray-900">₹<%= laptop.price.toLocaleString('en-IN') %></span>
                                     <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹<%= laptop.mrp.toLocaleString('en-IN') %></span>
                                 </div>
-                            </div>
+                            </a>
                             <% }) %>
                         <% } else { %>
                             <div class="p-4 text-gray-500 font-medium">No Apple laptops currently available</div>

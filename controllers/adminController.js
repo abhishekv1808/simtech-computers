@@ -102,7 +102,8 @@ exports.postAddLaptop = async (req, res, next) => {
         ram: req.body.ram, // Ensure these keys match the form input names
         storage: req.body.storage,
         display: req.body.display,
-        graphics: req.body.graphics
+        graphics: req.body.graphics,
+        os: req.body.os
     };
 
     const laptop = new Laptop({
@@ -123,7 +124,9 @@ exports.postAddLaptop = async (req, res, next) => {
         console.log('Created Laptop');
         res.redirect('/admin/dashboard');
     } catch (err) {
-        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
     }
 };
 
@@ -182,7 +185,8 @@ exports.postEditLaptop = async (req, res, next) => {
         ram: req.body.ram,
         storage: req.body.storage,
         display: req.body.display,
-        graphics: req.body.graphics
+        graphics: req.body.graphics,
+        os: req.body.os
     };
 
     try {
@@ -201,7 +205,9 @@ exports.postEditLaptop = async (req, res, next) => {
         console.log('UPDATED LAPTOP!');
         res.redirect('/admin/dashboard');
     } catch (err) {
-        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
     }
 };
 
