@@ -8,12 +8,14 @@ const {
     getAboutUs, 
     getContactUs,
     getLaptopsByBrand,
-    getProductDetail
+    getProductDetail,
+    getCompareLaptops
 } = require('../controllers/userController');
 
 userRouter.get('/', getHome);
 userRouter.get('/laptops', getLaptops);
 userRouter.get('/brand/:brandName', getLaptopsByBrand);
+userRouter.get('/compare-laptops', getCompareLaptops);
 userRouter.get('/laptop/:id', getProductDetail);
 userRouter.get('/store-locator', getStoreLocator);
 userRouter.get('/about-us', getAboutUs);

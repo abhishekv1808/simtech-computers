@@ -95,6 +95,19 @@ exports.getProductDetail = async (req, res, next) => {
     }
 };
 
+exports.getCompareLaptops = async (req, res, next) => {
+    try {
+        const laptops = await Laptop.find();
+        res.render('../views/user/compare-laptops', {
+            pageTitle: 'Compare Laptops',
+            laptops: laptops
+        });
+    } catch (err) {
+        console.log(err);
+        res.redirect('/');
+    }
+};
+
 exports.getSmartphones = async (req,res,next)=>{
     try {
         const smartphones = await Laptop.find({ category: 'smartphone' });

@@ -1,1 +1,226 @@
-   
+<%- include('../partials/head.ejs') %>
+
+<body>
+
+    <%- include('../partials/navbar.ejs') %>
+
+    <main class="bg-gray-50 min-h-screen py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">Compare Laptops</h1>
+
+            <!-- Selection Section -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    
+                    <!-- Laptop 1 Selector -->
+                    <div class="space-y-2">
+                        <label for="laptop1" class="block text-sm font-medium text-gray-700">Select First Laptop</label>
+                        <select id="laptop1" class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 py-3 px-4 border">
+                            <option value="">Choose a laptop...</option>
+                            <% laptops.forEach(laptop => { %>
+                                <option value="<%= laptop._id %>"><%= laptop.brand %> <%= laptop.model %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <!-- Laptop 2 Selector -->
+                    <div class="space-y-2">
+                        <label for="laptop2" class="block text-sm font-medium text-gray-700">Select Second Laptop</label>
+                        <select id="laptop2" class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500 py-3 px-4 border">
+                            <option value="">Choose a laptop...</option>
+                            <% laptops.forEach(laptop => { %>
+                                <option value="<%= laptop._id %>"><%= laptop.brand %> <%= laptop.model %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-center">
+                    <button id="compareBtn" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full transition-colors duration-200 shadow-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                        </svg>
+                        Compare Now
+                    </button>
+                    <!-- Clear Button -->
+                    <button id="clearBtn" class="ml-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-8 rounded-full transition-colors duration-200 shadow-lg hidden">
+                        Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div id="comparisonResult" class="hidden bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 border-b border-gray-200">
+                                <th class="p-4 w-1/5 text-gray-500 font-medium uppercase text-xs tracking-wider">Feature</th>
+                                <th class="p-4 w-2/5 text-gray-900 font-bold text-lg" id="name1"></th>
+                                <th class="p-4 w-2/5 text-gray-900 font-bold text-lg" id="name2"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <!-- Image Row -->
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Product Image</td>
+                                <td class="p-4">
+                                    <img id="img1" src="" alt="Laptop 1" class="h-48 object-contain mx-auto transition-transform hover:scale-105">
+                                </td>
+                                <td class="p-4">
+                                    <img id="img2" src="" alt="Laptop 2" class="h-48 object-contain mx-auto transition-transform hover:scale-105">
+                                </td>
+                            </tr>
+                            
+                            <!-- Price Row -->
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Price</td>
+                                <td class="p-4 text-xl font-bold text-teal-600" id="price1"></td>
+                                <td class="p-4 text-xl font-bold text-teal-600" id="price2"></td>
+                            </tr>
+
+                            <!-- Basic Specs -->
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Brand</td>
+                                <td class="p-4" id="brand1"></td>
+                                <td class="p-4" id="brand2"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Category</td>
+                                <td class="p-4" id="cat1"></td>
+                                <td class="p-4" id="cat2"></td>
+                            </tr>
+                            
+                            <!-- Detailed Specs -->
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Processor</td>
+                                <td class="p-4" id="proc1"></td>
+                                <td class="p-4" id="proc2"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">RAM</td>
+                                <td class="p-4" id="ram1"></td>
+                                <td class="p-4" id="ram2"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Storage</td>
+                                <td class="p-4" id="store1"></td>
+                                <td class="p-4" id="store2"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Display</td>
+                                <td class="p-4" id="disp1"></td>
+                                <td class="p-4" id="disp2"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Graphics</td>
+                                <td class="p-4" id="graph1"></td>
+                                <td class="p-4" id="graph2"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">OS</td>
+                                <td class="p-4" id="os1"></td>
+                                <td class="p-4" id="os2"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-gray-500 font-medium bg-gray-50/50">Status</td>
+                                <td class="p-4" id="status1"></td>
+                                <td class="p-4" id="status2"></td>
+                            </tr>
+
+                            <!-- Action Row -->
+                            <tr class="bg-gray-50">
+                                <td class="p-4"></td>
+                                <td class="p-4">
+                                    <a id="link1" href="#" class="block w-full text-center bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded-lg transition-colors">View Details</a>
+                                </td>
+                                <td class="p-4">
+                                    <a id="link2" href="#" class="block w-full text-center bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded-lg transition-colors">View Details</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+        // Pass server-side data to client-side safely
+        const laptopsData = <%- JSON.stringify(laptops) %>;
+        
+        const laptop1Select = document.getElementById('laptop1');
+        const laptop2Select = document.getElementById('laptop2');
+        const compareBtn = document.getElementById('compareBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const resultSection = document.getElementById('comparisonResult');
+
+        function formatPrice(price) {
+            return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(price);
+        }
+
+        function updateComparison() {
+            const id1 = laptop1Select.value;
+            const id2 = laptop2Select.value;
+
+            if (!id1 || !id2) {
+                alert('Please select two laptops to compare.');
+                return;
+            }
+
+            if (id1 === id2) {
+                alert('Please select different laptops to compare.');
+                return;
+            }
+
+            const laptop1 = laptopsData.find(l => l._id === id1);
+            const laptop2 = laptopsData.find(l => l._id === id2);
+
+            // Populate data
+            fillColumn(1, laptop1);
+            fillColumn(2, laptop2);
+
+            // Show result
+            resultSection.classList.remove('hidden');
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Show clear button
+            clearBtn.classList.remove('hidden');
+        }
+
+        function fillColumn(colNum, data) {
+            document.getElementById(`name${colNum}`).textContent = `${data.brand} ${data.model}`;
+            document.getElementById(`img${colNum}`).src = data.imageUrls[0] || '/images/default-laptop.png';
+            document.getElementById(`price${colNum}`).textContent = formatPrice(data.price);
+            document.getElementById(`brand${colNum}`).textContent = data.brand;
+            document.getElementById(`cat${colNum}`).textContent = data.category;
+            
+            // Specs
+            document.getElementById(`proc${colNum}`).textContent = data.specifications.processor || '-';
+            document.getElementById(`ram${colNum}`).textContent = data.specifications.ram || '-';
+            document.getElementById(`store${colNum}`).textContent = data.specifications.storage || '-';
+            document.getElementById(`disp${colNum}`).textContent = data.specifications.display || '-';
+            document.getElementById(`graph${colNum}`).textContent = data.specifications.graphics || '-';
+            document.getElementById(`os${colNum}`).textContent = data.specifications.os || '-';
+            
+            // Status styling
+            const statusEl = document.getElementById(`status${colNum}`);
+            statusEl.textContent = data.status;
+            statusEl.className = `p-4 font-medium ${data.status === 'In Stock' ? 'text-green-600' : 'text-red-600'}`;
+
+            // Link
+            document.getElementById(`link${colNum}`).href = `/laptop/${data._id}`;
+        }
+
+        compareBtn.addEventListener('click', updateComparison);
+        
+        clearBtn.addEventListener('click', () => {
+            laptop1Select.value = '';
+            laptop2Select.value = '';
+            resultSection.classList.add('hidden');
+            clearBtn.classList.add('hidden');
+        });
+    </script>
+</body>
