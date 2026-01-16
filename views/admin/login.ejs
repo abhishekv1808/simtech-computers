@@ -1,82 +1,86 @@
 ﻿<%- include('../partials/head.ejs') %>
 
-    <body class="bg-gray-50 flex items-center justify-center min-h-screen py-10">
+    <body class="bg-gray-50 flex items-center justify-center min-h-screen py-10 bg-[url('/images/grid-pattern.svg')] bg-fixed">
+        <!-- Background Overlay -->
+        <div class="fixed inset-0 bg-gradient-to-br from-cyan-50/50 to-blue-50/50 -z-10"></div>
 
-        <div class="w-full max-w-md">
-            <!-- Logo Section -->
-            <div class="text-center mb-8">
-                <div class="flex justify-center">
-                    <img src="/images/RgComputers-logo.png" alt="RG Computers" class="h-16 object-contain">
-                </div>
-                <p class="text-gray-500 mt-2 font-medium">Administration Portal</p>
-                <% if (errorMessage) { %>
-                    <div class="flex items-center p-4 mb-6 text-sm text-red-700 bg-red-50 rounded-lg border border-red-200"
-                        role="alert">
-                        <i class="fas fa-exclamation-circle mr-3 text-lg"></i>
-                        <div>
-                            <span class="font-bold">Error:</span>
-                            <%= errorMessage %>
-                        </div>
+        <div class="w-full max-w-md px-4 relative z-10">
+            <!-- Card -->
+            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <!-- Logo Section -->
+                <div class="px-8 pt-8 pb-6 text-center border-b border-gray-50">
+                    <div class="flex justify-center mb-4">
+                        <img src="/images/RgComputers-logo.png" alt="RG Computers" class="h-16 object-contain transform hover:scale-105 transition-transform duration-300">
                     </div>
+                    <h2 class="text-xl font-bold text-gray-800">Administration Portal</h2>
+                    <p class="text-sm text-gray-500 mt-1">Please sign in to continue</p>
+                </div>
+
+                <div class="p-8">
+                    <% if (errorMessage) { %>
+                        <div class="flex items-center p-4 mb-6 text-sm text-red-700 bg-red-50 rounded-xl border border-red-100 animate-pulse" role="alert">
+                            <i class="fas fa-exclamation-circle mr-3 text-lg"></i>
+                            <div>
+                                <span class="font-bold">Error:</span>
+                                <%= errorMessage %>
+                            </div>
+                        </div>
                     <% } %>
 
-                        <form action="/admin/login" method="POST" class="space-y-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2" for="email">Email
-                                    Address</label>
-                                <div class="relative rounded-md shadow-sm">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500 sm:text-sm">
-                                            <i class="fas fa-envelope"></i>
-                                        </span>
-                                    </div>
-                                    <input
-                                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all sm:text-sm shadow-sm hover:border-gray-400"
-                                        id="email" type="email" name="email" placeholder="admin@rgcomputers.in"
-                                        required>
+                    <form action="/admin/login" method="POST" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2" for="email">Email Address</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-400 group-focus-within:text-cyan-500 transition-colors">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
                                 </div>
+                                <input
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all shadow-sm hover:bg-white"
+                                    id="email" type="email" name="email" placeholder="admin@rgcomputers.in" required>
                             </div>
+                        </div>
 
-                            <div>
-                                <div class="flex justify-between items-center mb-2">
-                                    <label class="block text-sm font-semibold text-gray-700"
-                                        for="password">Password</label>
-                                </div>
-                                <div class="relative rounded-md shadow-sm">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500 sm:text-sm">
-                                            <i class="fas fa-lock"></i>
-                                        </span>
-                                    </div>
-                                    <input
-                                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all sm:text-sm shadow-sm hover:border-gray-400"
-                                        id="password" type="password" name="password"
-                                        placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
-                                </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="block text-sm font-bold text-gray-700" for="password">Password</label>
                             </div>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-400 group-focus-within:text-cyan-500 transition-colors">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                                <input
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all shadow-sm hover:bg-white"
+                                    id="password" type="password" name="password" placeholder="••••••••" required>
+                            </div>
+                        </div>
 
-                            <div class="pt-2">
-                                <button
-                                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform active:scale-95"
-                                    type="submit">
-                                    Sign In
-                                </button>
-                            </div>
-                        </form>
+                        <div class="pt-2">
+                            <button
+                                class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all transform active:scale-[0.98]"
+                                type="submit">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 flex justify-center">
+                    <a href="/" class="text-sm font-bold text-gray-500 hover:text-cyan-600 transition-colors flex items-center group">
+                        <i class="fas fa-arrow-left mr-2 font-normal group-hover:-translate-x-1 transition-transform"></i> Back to Store
+                    </a>
+                </div>
             </div>
 
-            <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 flex justify-center">
-                <a href="/"
-                    class="text-sm font-medium text-gray-500 hover:text-blue-600 transition-colors flex items-center">
-                    <i class="fas fa-arrow-left mr-2 font-normal"></i> Back to Store
-                </a>
+            <!-- Footer -->
+            <div class="mt-8 text-center">
+                <p class="text-xs text-gray-400 font-medium">
+                    &copy; <%= new Date().getFullYear() %> RG Computers. All rights reserved.
+                </p>
             </div>
-        </div>
-
-        <div class="mt-8 text-center text-xs text-gray-400">
-            &copy; <%= new Date().getFullYear() %> RG Computers. All rights reserved.
-        </div>
         </div>
     </body>
-
-    </html>
+</html>

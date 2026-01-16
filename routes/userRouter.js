@@ -13,6 +13,7 @@ const {
     getBlogDetail,
     getCompareLaptops,
     getMonitors,
+    getSearch,
     postCart,
     getCart,
     postCartDeleteProduct,
@@ -22,6 +23,7 @@ const {
 
 userRouter.get('/', getHome);
 userRouter.get('/laptops', getLaptops);
+userRouter.get('/search', getSearch);
 userRouter.get('/brand/:brandName', getLaptopsByBrand);
 userRouter.get('/compare-laptops', getCompareLaptops);
 userRouter.get('/monitors', getMonitors);

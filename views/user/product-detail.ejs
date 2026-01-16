@@ -42,27 +42,29 @@
                                     <!-- Main Image -->
                                     <div
                                         class="flex-1 relative bg-gray-50 rounded-xl p-8 flex items-center justify-center min-h-[400px] border border-gray-100">
-                                        <% if (laptop.stockQuantity === 0 || laptop.status === 'Out of Stock') { %>
-                                            <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-                                                <div class="bg-red-600 text-white text-lg font-bold px-6 py-2 rounded-full shadow-lg transform -rotate-6">
+                                        <% if (laptop.stockQuantity===0 || laptop.status==='Out of Stock' ) { %>
+                                            <div
+                                                class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                                                <div
+                                                    class="bg-red-600 text-white text-lg font-bold px-6 py-2 rounded-full shadow-lg transform -rotate-6">
                                                     Out of Stock
                                                 </div>
                                             </div>
-                                        <% } %>
-                                        <!-- Badge -->
-                                        <div
-                                            class="absolute top-4 left-4 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-2 z-10">
-                                            <i class="fas fa-check-circle text-cyan-400"></i>
-                                            <span>RG COMPUTERS ASSURED</span>
-                                        </div>
-                                        <div
-                                            class="absolute top-4 right-4 text-gray-400 hover:text-red-500 cursor-pointer transition-colors">
-                                            <i class="far fa-heart text-xl"></i>
-                                        </div>
+                                            <% } %>
+                                                <!-- Badge -->
+                                                <div
+                                                    class="absolute top-4 left-4 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-2 z-10">
+                                                    <i class="fas fa-check-circle text-cyan-400"></i>
+                                                    <span>RG COMPUTERS ASSURED</span>
+                                                </div>
+                                                <div
+                                                    class="absolute top-4 right-4 text-gray-400 hover:text-red-500 cursor-pointer transition-colors">
+                                                    <i class="far fa-heart text-xl"></i>
+                                                </div>
 
-                                        <img id="main-image" src="<%= laptop.imageUrls[0] %>"
-                                            alt="<%= laptop.brand %> <%= laptop.model %>"
-                                            class="max-w-full max-h-[350px] object-contain mix-blend-multiply transition-transform duration-300 hover:scale-105">
+                                                <img id="main-image" src="<%= laptop.imageUrls[0] %>"
+                                                    alt="<%= laptop.brand %> <%= laptop.model %>"
+                                                    class="max-w-full max-h-[350px] object-contain mix-blend-multiply transition-transform duration-300 hover:scale-105">
                                     </div>
                                 </div>
 
@@ -151,73 +153,40 @@
                                             <p class="text-xs text-gray-600">Add 6 Months for &#8377;1,499</p>
                                         </div>
                                     </div>
-                                    <button
-                                        class="bg-black text-white text-xs font-bold px-4 py-2 rounded hover:bg-gray-800 transition-colors">
-                                        Add
-                                    </button>
-                                </div>
-
-                                <!-- Add to Cart / Buy Actions -->
-                                <% if (laptop.stockQuantity > 0 && laptop.status !== 'Out of Stock') { %>
-                                <div class="flex gap-4 mb-8">
-                                    <form action="/cart" method="POST" class="flex-1">
-                                        <input type="hidden" name="productId" value="<%= laptop._id %>">
-                                        <button type="submit"
-                                            class="w-full bg-white border border-gray-300 text-gray-900 font-bold py-3 px-6 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-                                            <i class="fas fa-shopping-cart"></i> Add to Cart
-                                        </button>
-                                    </form>
-                                    <form action="/cart" method="POST" class="flex-1">
-                                        <input type="hidden" name="productId" value="<%= laptop._id %>">
-                                        <button type="submit"
-                                            class="w-full bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors">
-                                            Buy Now
-                                        </button>
-                                    </form>
-                                </div>
-                                <% } else { %>
-                                <div class="w-full bg-red-50 text-red-600 font-bold py-4 rounded-lg border border-red-100 text-center mb-8 text-lg">
-                                    Currently Out of Stock
-                                </div>
-                                <% } %>
-
-                                <hr class="border-gray-200 mb-6">
-
-                                <!-- Specifications Selection (Visual only mostly since specific product) -->
-                                <div class="space-y-6">
-                                    <div>
-                                        <h3 class="font-bold text-gray-900 mb-3">Condition</h3>
-                                        <div class="flex gap-3">
-                                            <button
-                                                class="px-4 py-2 border rounded-lg text-sm text-gray-400 border-gray-200 cursor-not-allowed"
-                                                disabled>Fair</button>
-                                            <button
-                                                class="px-4 py-2 border-2 border-cyan-500 bg-cyan-50 text-cyan-700 font-bold rounded-lg text-sm relative">
-                                                Good
-                                                <i
-                                                    class="fas fa-check-circle absolute -top-2 -right-2 text-cyan-500 bg-white rounded-full"></i>
-                                            </button>
-                                            <button
-                                                class="px-4 py-2 border rounded-lg text-sm text-gray-400 border-gray-200 cursor-not-allowed"
-                                                disabled>Superb</button>
+                                    <button <div class="space-y-6">
+                                        <div>
+                                            <h3 class="font-bold text-gray-900 mb-3">Condition</h3>
+                                            <div class="flex gap-3">
+                                                <button
+                                                    class="px-4 py-2 border rounded-lg text-sm text-gray-400 border-gray-200 cursor-not-allowed"
+                                                    disabled>Fair</button>
+                                                <button
+                                                    class="px-4 py-2 border-2 border-cyan-500 bg-cyan-50 text-cyan-700 font-bold rounded-lg text-sm relative">
+                                                    Good
+                                                    <i
+                                                        class="fas fa-check-circle absolute -top-2 -right-2 text-cyan-500 bg-white rounded-full"></i>
+                                                </button>
+                                                <button
+                                                    class="px-4 py-2 border rounded-lg text-sm text-gray-400 border-gray-200 cursor-not-allowed"
+                                                    disabled>Superb</button>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div>
-                                        <h3 class="font-bold text-gray-900 mb-3">Storage</h3>
-                                        <button
-                                            class="px-4 py-2 border-2 border-cyan-500 bg-cyan-50 text-cyan-700 font-bold rounded-lg text-sm">
-                                            <%= laptop.specifications.ram %> / <%= laptop.specifications.storage %>
-                                        </button>
-                                    </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-900 mb-3">Storage</h3>
+                                            <button
+                                                class="px-4 py-2 border-2 border-cyan-500 bg-cyan-50 text-cyan-700 font-bold rounded-lg text-sm">
+                                                <%= laptop.specifications.ram %> / <%= laptop.specifications.storage %>
+                                            </button>
+                                        </div>
 
-                                    <div>
-                                        <h3 class="font-bold text-gray-900 mb-3">Operating System</h3>
-                                        <button
-                                            class="px-4 py-2 border-2 border-cyan-500 bg-cyan-50 text-cyan-700 font-bold rounded-lg text-sm">
-                                            <%= laptop.specifications.os || 'Windows 10 / 11' %>
-                                        </button>
-                                    </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-900 mb-3">Operating System</h3>
+                                            <button
+                                                class="px-4 py-2 border-2 border-cyan-500 bg-cyan-50 text-cyan-700 font-bold rounded-lg text-sm">
+                                                <%= laptop.specifications.os || 'Windows 10 / 11' %>
+                                            </button>
+                                        </div>
                                 </div>
 
                                 <!-- Technical Specifications (Right Column) -->
@@ -249,7 +218,8 @@
                                             </span>
                                         </div>
                                         <div class="bg-gray-50 p-3 rounded">
-                                            <span class="text-gray-500 block text-xs">Operating System</span>
+                                            <span class="text-gray-500 block text-xs">Operating
+                                                System</span>
                                             <span class="font-medium text-gray-900">
                                                 <%= laptop.specifications.os || 'N/A' %>
                                             </span>
@@ -306,7 +276,8 @@
                                         <div class="mb-2">
                                             <span
                                                 class="bg-green-50 text-cyan-600 text-[10px] font-bold px-1.5 py-0.5 rounded">&#8377;
-                                                <%= itemDiscount.toLocaleString('en-IN') %> OFF</span>
+                                                <%= itemDiscount.toLocaleString('en-IN') %> OFF
+                                            </span>
                                         </div>
 
                                         <!-- Title -->
@@ -351,7 +322,8 @@
                                                     item.price.toLocaleString('en-IN') %></span>
                                             <span
                                                 class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">&#8377;
-                                                <%= item.mrp.toLocaleString('en-IN') %></span>
+                                                <%= item.mrp.toLocaleString('en-IN') %>
+                                            </span>
                                         </div>
                                     </a>
                                     <% }) %>

@@ -1,11 +1,57 @@
 @import "tailwindcss";
 
 @layer base {
-    html, body {
-        font-family: "Urbanist", sans-serif;
+    html {
+        scroll-behavior: smooth;
+        -webkit-tap-highlight-color: transparent;
     }
 
-    h1, h2, h3, h4, h5, h6 {
+    body {
+        font-family: "Urbanist", sans-serif;
+        /* 4rem (h-16) for bottom nav + safe area */
+        padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-family: "Inter", sans-serif;
+    }
+}
+
+@layer utilities {
+    .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .pt-safe {
+        padding-top: env(safe-area-inset-top);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .touch-pan-x {
+        touch-action: pan-x;
+    }
+
+    .touch-pan-y {
+        touch-action: pan-y;
+    }
+
+    /* Hide bottom nav on desktop */
+    @media (min-width: 768px) {
+        body {
+            padding-bottom: 0;
+        }
     }
 }

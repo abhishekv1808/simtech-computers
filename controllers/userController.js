@@ -201,6 +201,32 @@ exports.getMonitors = async (req, res, next) => {
     }
 }
 
+exports.getSearch = async (req, res, next) => {
+    const query = req.query.q;
+    try {
+        if (!query) {
+            return res.redirect('/');
+        }
+
+        const laptops = await Laptop.find({
+            $or: [
+                { brand: { $regex: query, $options: 'i' } },
+                { model: { $regex: query, $options: 'i' } },
+                { category: { $regex: query, $options: 'i' } },
+                { 'specifications.processor': { $regex: query, $options: 'i' } }
+            ]
+        });
+
+        res.render('../views/user/laptops', {
+            pageTitle: `Search Results for "${query}"`,
+            laptops: laptops
+        });
+    } catch (err) {
+        console.log(err);
+        res.redirect('/');
+    }
+};
+
 exports.postCart = async (req, res, next) => {
     const prodId = req.body.productId;
     console.log('Post Cart called with Product ID:', prodId);
