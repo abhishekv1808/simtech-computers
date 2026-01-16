@@ -34,7 +34,7 @@ const laptopSchema = new Schema({
     category: {
         type: String,
         required: true,
-        enum: ['Standard', 'Corporate', 'Workstation', 'Gaming'],
+        enum: ['Standard', 'Corporate', 'Workstation', 'Gaming', 'Monitor'],
         default: 'Standard'
     },
     status: {

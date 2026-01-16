@@ -90,7 +90,7 @@
                             <div class="relative">
                                 <select class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white appearance-none cursor-pointer hover:border-blue-300" id="category" name="category" required>
                                     <option value="" disabled <%= !editing ? 'selected' : '' %>>Select Category</option>
-                                    <% const categories = ['Standard', 'Corporate', 'Workstation', 'Gaming']; %>
+                                    <% const categories = ['Standard', 'Corporate', 'Workstation', 'Gaming', 'Monitor']; %>
                                     <% categories.forEach(cat => { %>
                                         <option value="<%= cat %>" <%= editing && laptop.category === cat ? 'selected' : '' %>><%= cat %></option>
                                     <% }) %>

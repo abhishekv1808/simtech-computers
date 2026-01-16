@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= pageTitle %></title>
+    <% if (locals.metaDescription) { %>
+        <meta name="description" content="<%= metaDescription %>">
+    <% } %>
+    <% if (locals.keywords) { %>
+        <meta name="keywords" content="<%= keywords %>">
+    <% } %>
+    <% if (locals.laptop && locals.laptop.imageUrls && locals.laptop.imageUrls.length > 0) { %>
+        <meta property="og:image" content="<%= laptop.imageUrls[0] %>">
+        <meta property="og:title" content="<%= pageTitle %>">
+        <meta property="og:description" content="<%= locals.metaDescription || 'Buy Premium Refurbished Laptops at SimTech' %>">
+    <% } %>
     <link rel="stylesheet" href="">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="/output.css">

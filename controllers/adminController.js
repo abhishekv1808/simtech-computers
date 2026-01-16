@@ -24,9 +24,10 @@ exports.postLogin = async (req, res, next) => {
         const doMatch = await bcrypt.compare(password, admin.password);
         if (doMatch) {
             req.session.isLoggedIn = true;
-            req.session.admin = admin;
+            req.session.adminId = admin._id.toString();
             return req.session.save(err => {
-                console.log(err);
+                if (err) console.log('Admin Session Save Error:', err);
+                console.log('Admin Logged In Successfully');
                 res.redirect('/admin/dashboard');
             });
         }
@@ -52,10 +53,10 @@ exports.getDashboard = async (req, res, next) => {
         const laptops = await Laptop.find().sort({ createdAt: -1 });
         const totalLaptops = laptops.length;
         const recentLaptops = laptops.slice(0, 5);
-        
+
         // Calculate total inventory value
         const totalValue = laptops.reduce((acc, curr) => acc + (curr.price * curr.stockQuantity), 0);
-        
+
         // Calculate unique brands
         const uniqueBrands = [...new Set(laptops.map(l => l.brand))].length;
 
@@ -88,7 +89,7 @@ exports.postAddLaptop = async (req, res, next) => {
     const price = req.body.price;
     const mrp = req.body.mrp;
     const description = req.body.description;
-    
+
     // Handle Cloudinary Uploads
     let imageUrls = [];
     if (req.files && req.files.length > 0) {
@@ -130,6 +131,112 @@ exports.postAddLaptop = async (req, res, next) => {
     }
 };
 
+exports.getAddMonitor = (req, res, next) => {
+    res.render('admin/add-monitor', {
+        pageTitle: 'Add Monitor',
+        editing: false,
+        path: '/admin/add-monitor'
+    });
+};
+
+exports.postAddMonitor = async (req, res, next) => {
+    const brand = req.body.brand;
+    const model = req.body.model;
+    const category = 'Monitor'; // Explicitly set
+    const price = req.body.price;
+    const mrp = req.body.mrp;
+    const description = req.body.description;
+
+    // Handle Cloudinary Uploads
+    let imageUrls = [];
+    if (req.files && req.files.length > 0) {
+        imageUrls = req.files.map(file => file.path);
+    }
+
+    const stockQuantity = req.body.stockQuantity;
+    const status = req.body.status;
+    const specs = {
+        // Monitors usually don't have these, but if form provided them (unlikely), ignore or include
+        display: req.body.display,
+        os: req.body.os // Some smart monitors might have OS
+    };
+
+    const laptop = new Laptop({ // Using Laptop model as generic Product model
+        brand: brand,
+        model: model,
+        category: category,
+        price: price,
+        mrp: mrp,
+        description: description,
+        imageUrls: imageUrls,
+        stockQuantity: stockQuantity,
+        status: status,
+        specifications: specs
+    });
+
+    try {
+        await laptop.save();
+        console.log('Created Monitor');
+        res.redirect('/admin/dashboard');
+    } catch (err) {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+};
+
+exports.postEditMonitor = async (req, res, next) => {
+    const monitorId = req.body.monitorId;
+    const updatedBrand = req.body.brand;
+    const updatedModel = req.body.model;
+    // Category remains 'Monitor'
+    const updatedPrice = req.body.price;
+    const updatedMrp = req.body.mrp;
+    const updatedDesc = req.body.description;
+
+    let newImageUrls = [];
+    if (req.files && req.files.length > 0) {
+        newImageUrls = req.files.map(file => file.path);
+    }
+
+    let existingImages = req.body.existingImages || [];
+    if (!Array.isArray(existingImages)) {
+        existingImages = [existingImages];
+    }
+
+    const finalImageUrls = existingImages.concat(newImageUrls);
+
+    const updatedStockQuantity = req.body.stockQuantity;
+    const updatedStatus = req.body.status;
+    const updatedSpecs = {
+        display: req.body.display,
+        os: req.body.os
+    };
+
+    try {
+        const monitor = await Laptop.findById(monitorId); // Still using Laptop model
+        if (!monitor) return res.redirect('/admin/dashboard');
+
+        monitor.brand = updatedBrand;
+        monitor.model = updatedModel;
+        monitor.price = updatedPrice;
+        monitor.mrp = updatedMrp;
+        monitor.description = updatedDesc;
+        monitor.imageUrls = finalImageUrls;
+        monitor.stockQuantity = updatedStockQuantity;
+        monitor.status = updatedStatus;
+        monitor.specifications = updatedSpecs; // Overwrite specs with monitor specific ones
+
+        await monitor.save();
+        console.log('UPDATED MONITOR!');
+        res.redirect('/admin/inventory');
+    } catch (err) {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+};
+
 exports.getEditLaptop = async (req, res, next) => {
     const editMode = req.query.edit;
     if (!editMode) {
@@ -141,6 +248,17 @@ exports.getEditLaptop = async (req, res, next) => {
         if (!laptop) {
             return res.redirect('/');
         }
+
+        // Check if it's a monitor
+        if (laptop.category === 'Monitor') {
+            return res.render('admin/add-monitor', { // Reuse add-monitor for editing
+                pageTitle: 'Edit Monitor',
+                editing: editMode,
+                monitor: laptop, // Pass 'monitor' variable
+                path: '/admin/edit-monitor'
+            });
+        }
+
         res.render('admin/edit-laptop', {
             pageTitle: 'Edit Laptop',
             editing: editMode,
@@ -160,7 +278,7 @@ exports.postEditLaptop = async (req, res, next) => {
     const updatedPrice = req.body.price;
     const updatedMrp = req.body.mrp;
     const updatedDesc = req.body.description;
-    
+
     // Handle New Uploads
     let newImageUrls = [];
     if (req.files && req.files.length > 0) {
@@ -174,7 +292,7 @@ exports.postEditLaptop = async (req, res, next) => {
     if (!Array.isArray(existingImages)) {
         existingImages = [existingImages];
     }
-    
+
     // Combine old and new
     const finalImageUrls = existingImages.concat(newImageUrls);
 

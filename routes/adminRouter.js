@@ -24,12 +24,20 @@ router.get('/add-laptop', isAuth, adminController.getAddLaptop);
 // /admin/add-laptop => POST
 router.post('/add-laptop', isAuth, parser.array('images', 5), adminController.postAddLaptop);
 
+// /admin/add-monitor => GET
+router.get('/add-monitor', isAuth, adminController.getAddMonitor);
+
+// /admin/add-monitor => POST
+router.post('/add-monitor', isAuth, parser.array('images', 5), adminController.postAddMonitor);
+
 // /admin/edit-laptop/:laptopId => GET
 router.get('/edit-laptop/:laptopId', isAuth, adminController.getEditLaptop);
 
 // /admin/edit-laptop => POST
 router.post('/edit-laptop', isAuth, parser.array('images', 5), adminController.postEditLaptop);
 
+// /admin/edit-monitor => POST
+router.post('/edit-monitor', isAuth, parser.array('images', 5), adminController.postEditMonitor);
 
 // /admin/delete-laptop => POST
 router.post('/delete-laptop', isAuth, adminController.postDeleteLaptop);
