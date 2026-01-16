@@ -20,7 +20,7 @@ const blogSchema = new Schema({
     },
     author: {
         type: String,
-        default: 'SimTech Team'
+        default: 'RG Computers Team'
     },
     createdAt: {
         type: Date,

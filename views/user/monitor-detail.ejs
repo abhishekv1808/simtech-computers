@@ -1,250 +1,315 @@
-<%- include('../partials/head.ejs') %>
+﻿<%- include('../partials/head.ejs') %>
 
-<body>
-    <%- include('../partials/navbar.ejs') %>
+    <body>
+        <%- include('../partials/navbar.ejs') %>
 
-    <main class="bg-gray-50 min-h-screen py-8">
-        <!-- Breadcrumb -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 text-sm text-gray-500">
-            <a href="/" class="hover:text-emerald-600">Home</a> 
-            <span class="mx-2">></span> 
-            <a href="/monitors" class="hover:text-emerald-600">Monitors</a>
-            <span class="mx-2">></span>
-            <span class="text-gray-900 font-medium"><%= monitor.model %></span>
-        </div>
+            <main class="bg-gray-50 min-h-screen py-8">
+                <!-- Breadcrumb -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 text-sm text-gray-500">
+                    <a href="/" class="hover:text-cyan-600">Home</a>
+                    <span class="mx-2">></span>
+                    <a href="/monitors" class="hover:text-cyan-600">Monitors</a>
+                    <span class="mx-2">></span>
+                    <span class="text-gray-900 font-medium">
+                        <%= monitor.model %>
+                    </span>
+                </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    
-                    <!-- Left Column: Images -->
-                    <div class="space-y-4">
-                        <div class="flex gap-4">
-                            <!-- Thumbnails -->
-                            <div class="hidden md:flex flex-col gap-3 w-20">
-                                <% if(monitor.imageUrls && monitor.imageUrls.length > 0) { %>
-                                    <% monitor.imageUrls.forEach((url, index) => { %>
-                                        <div class="cursor-pointer border-2 <%= index === 0 ? 'border-emerald-500' : 'border-gray-200' %> rounded-lg overflow-hidden hover:border-emerald-500 transition-colors" onclick="changeImage('<%= url %>', this)">
-                                            <img src="<%= url %>" alt="Thumbnail" class="w-full h-16 object-contain p-1">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                            <!-- Left Column: Images -->
+                            <div class="space-y-4">
+                                <div class="flex gap-4">
+                                    <!-- Thumbnails -->
+                                    <div class="hidden md:flex flex-col gap-3 w-20">
+                                        <% if(monitor.imageUrls && monitor.imageUrls.length> 0) { %>
+                                            <% monitor.imageUrls.forEach((url, index)=> { %>
+                                                <div class="cursor-pointer border-2 <%= index === 0 ? 'border-cyan-500' : 'border-gray-200' %> rounded-lg overflow-hidden hover:border-cyan-500 transition-colors"
+                                                    onclick="changeImage('<%= url %>', this)">
+                                                    <img src="<%= url %>" alt="Thumbnail"
+                                                        class="w-full h-16 object-contain p-1">
+                                                </div>
+                                                <% }) %>
+                                                    <% } %>
+                                    </div>
+
+                                    <!-- Main Image -->
+                                    <div
+                                        class="flex-1 relative bg-gray-50 rounded-xl p-8 flex items-center justify-center min-h-[400px] border border-gray-100">
+                                        <% if (monitor.stockQuantity === 0 || monitor.status === 'Out of Stock') { %>
+                                            <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                                                <div class="bg-red-600 text-white text-lg font-bold px-6 py-2 rounded-full shadow-lg transform -rotate-6">
+                                                    Out of Stock
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                        <!-- Badge -->
+                                        <div
+                                            class="absolute top-4 left-4 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-2 z-10">
+                                            <i class="fas fa-check-circle text-cyan-400"></i>
+                                            <span>RG COMPUTERS ASSURED</span>
                                         </div>
+                                        <div
+                                            class="absolute top-4 right-4 text-gray-400 hover:text-red-500 cursor-pointer transition-colors">
+                                            <i class="far fa-heart text-xl"></i>
+                                        </div>
+
+                                        <img id="main-image"
+                                            src="<%= (monitor.imageUrls && monitor.imageUrls.length > 0) ? monitor.imageUrls[0] : '/images/default-monitor.png' %>"
+                                            alt="<%= monitor.brand %> <%= monitor.model %>"
+                                            class="max-w-full max-h-[350px] object-contain mix-blend-multiply transition-transform duration-300 hover:scale-105">
+                                    </div>
+                                </div>
+
+                                <!-- Mobile Thumbnails (Horizontal) -->
+                                <div class="flex gap-3 overflow-x-auto md:hidden pb-2 no-scrollbar">
+                                    <% if(monitor.imageUrls && monitor.imageUrls.length> 0) { %>
+                                        <% monitor.imageUrls.forEach((url, index)=> { %>
+                                            <div class="flex-shrink-0 w-16 h-16 cursor-pointer border-2 <%= index === 0 ? 'border-cyan-500' : 'border-gray-200' %> rounded-lg overflow-hidden"
+                                                onclick="changeImage('<%= url %>', this)">
+                                                <img src="<%= url %>" alt="Thumbnail"
+                                                    class="w-full h-full object-contain p-1">
+                                            </div>
+                                            <% }) %>
+                                                <% } %>
+                                </div>
+
+                                <!-- Warranty Info Banner -->
+                                <div
+                                    class="bg-black text-white p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm font-medium">
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-gray-800 px-2 py-0.5 rounded">32</span>
+                                        <span>Points Quality Check</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-cyan-400 font-bold">15</span>
+                                        <span>Days Replacement</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-cyan-400 font-bold">06</span>
+                                        <span>Months Warranty</span>
+                                    </div>
+                                </div>
+
+                                <!-- Product Description (Moved to Left Column) -->
+                                <div class="mt-8 pt-6 border-t border-gray-100">
+                                    <h3 class="font-bold text-gray-900 mb-3">Product Description</h3>
+                                    <p class="text-gray-600 text-sm leading-relaxed">
+                                        <%= monitor.description %>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Details -->
+                            <div>
+                                <h1 class="text-2xl font-bold text-gray-900 mb-2">
+                                    <%= monitor.brand %>
+                                        <%= monitor.model %>
+                                            <%= monitor.specifications.display ? '(' + monitor.specifications.display
+                                                + ')' : '' %> - Refurbished
+                                </h1>
+                                <p class="text-gray-500 text-sm mb-4">RG Computers Warranty, Grade A, Refurbished
+                                    Monitor</p>
+
+                                <!-- Rating -->
+                                <div class="flex items-center gap-2 mb-6">
+                                    <span
+                                        class="bg-cyan-600 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
+                                        4.5 <i class="fas fa-star text-[10px]"></i>
+                                    </span>
+                                    <span class="text-sm text-gray-500">4 reviews</span>
+                                </div>
+
+                                <!-- Price Section -->
+                                <div class="mb-8">
+                                    <div class="flex items-end gap-3 mb-1">
+                                        <span class="text-3xl font-bold text-gray-900">&#8377;<%=
+                                                monitor.price.toLocaleString('en-IN') %></span>
+                                        <span class="text-lg text-gray-500 line-through mb-1">&#8377;<%=
+                                                monitor.mrp.toLocaleString('en-IN') %></span>
+                                        <span class="text-lg font-bold text-cyan-600 mb-1">
+                                            <%= discountPercent %>% OFF
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-gray-500">Inclusive of all taxes</p>
+                                </div>
+
+                                <!-- Key Specs (Highlights) -->
+                                <h3 class="font-bold text-gray-900 mb-4">Key Specifications</h3>
+                                <div class="grid grid-cols-2 gap-4 mb-8">
+                                    <div
+                                        class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm">
+                                            <i class="fas fa-desktop"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-[10px] text-gray-500 uppercase font-bold">Display</p>
+                                            <p class="text-xs font-bold text-gray-900 truncate"
+                                                title="<%= monitor.specifications.display %>">
+                                                <%= monitor.specifications.display || 'Standard' %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <% if(monitor.specifications.os && monitor.specifications.os !=='N/A' ) { %>
+                                        <div
+                                            class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
+                                            <div
+                                                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-purple-600 shadow-sm">
+                                                <i class="fas fa-asterisk"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-[10px] text-gray-500 uppercase font-bold">Features</p>
+                                                <p class="text-xs font-bold text-gray-900 truncate"
+                                                    title="<%= monitor.specifications.os %>">
+                                                    <%= monitor.specifications.os %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                            <div
+                                                class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
+                                                <div
+                                                    class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-cyan-600 shadow-sm">
+                                                    <i class="fas fa-box-open"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Stock</p>
+                                                    <p class="text-xs font-bold text-gray-900">
+                                                        <%= monitor.stockQuantity> 0 ? 'In Stock' : 'Out of Stock' %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
+                                                <div
+                                                    class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-orange-600 shadow-sm">
+                                                    <i class="fas fa-tag"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Condition
+                                                    </p>
+                                                    <p class="text-xs font-bold text-gray-900">Refurbished - Excel..</p>
+                                                </div>
+                                            </div>
+                                </div>
+
+                                <!-- Purchase Actions -->
+                                <% if(monitor.stockQuantity > 0 && monitor.status !== 'Out of Stock') { %>
+                                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                                        <button
+                                            class="flex-1 bg-cyan-600 text-white font-bold py-3.5 rounded-xl hover:bg-cyan-700 transition-colors shadow-lg shadow-cyan-200">
+                                            Buy Now
+                                        </button>
+                                        <button
+                                            class="flex-1 bg-white text-gray-900 border-2 border-gray-200 font-bold py-3.5 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                                            Add to Cart
+                                        </button>
+                                    </div>
+                                    <% } else { %>
+                                        <div
+                                            class="w-full bg-red-50 text-red-600 font-bold py-3 rounded-xl border border-red-100 text-center mb-8">
+                                            Out of Stock
+                                        </div>
+                                        <% } %>
+
+                                            <!-- Why Buy From Us -->
+                                            <div class="border-t border-gray-100 pt-6">
+                                                <h4 class="text-sm font-bold text-gray-900 mb-4">Why Buy From RG
+                                                    Computers?</h4>
+                                                <div class="space-y-3">
+                                                    <div class="flex items-center gap-3">
+                                                        <i
+                                                            class="fas fa-shield-alt text-cyan-500 w-5 text-center"></i>
+                                                        <span class="text-sm text-gray-600">6 Months Comprehensive
+                                                            Warranty</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-3">
+                                                        <i class="fas fa-truck text-cyan-500 w-5 text-center"></i>
+                                                        <span class="text-sm text-gray-600">Free Shipping Across
+                                                            India</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-3">
+                                                        <i class="fas fa-undo text-cyan-500 w-5 text-center"></i>
+                                                        <span class="text-sm text-gray-600">15 Days Easy Returns</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Similar Monitors Section -->
+                    <% if(similarMonitors.length> 0) { %>
+                        <div class="mt-16">
+                            <div class="flex items-center justify-between mb-8">
+                                <h2 class="text-2xl font-bold text-gray-900">Similar Monitors</h2>
+                                <a href="/monitors" class="text-cyan-600 font-bold text-sm hover:underline">View
+                                    All</a>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <% similarMonitors.forEach(similar=> { %>
+                                    <div
+                                        class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+                                        <div class="relative aspect-[4/3] bg-gray-50 overflow-hidden">
+                                            <img src="<%= (similar.imageUrls && similar.imageUrls.length > 0) ? similar.imageUrls[0] : '/images/default-monitor.png' %>"
+                                                class="w-full h-full object-contain p-4 mix-blend-multiply group-hover:scale-105 transition-transform duration-500">
+                                        </div>
+                                        <div class="p-4">
+                                            <p class="text-xs text-gray-500 mb-1">
+                                                <%= similar.brand %>
+                                            </p>
+                                            <h3 class="font-bold text-gray-900 mb-3 truncate">
+                                                <%= similar.model %>
+                                            </h3>
+                                            <div class="flex items-end justify-between">
+                                                <div>
+                                                    <p class="text-xs text-gray-400 line-through">&#8377;<%=
+                                                            similar.mrp.toLocaleString('en-IN') %>
+                                                    </p>
+                                                    <p class="text-lg font-bold text-gray-900">&#8377;<%=
+                                                            similar.price.toLocaleString('en-IN') %>
+                                                    </p>
+                                                </div>
+                                                <a href="/monitor/<%= similar._id %>"
+                                                    class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-cyan-600 hover:text-white transition-colors">
+                                                    <i class="fas fa-arrow-right text-xs"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <% }) %>
-                                <% } %>
-                            </div>
-                            
-                            <!-- Main Image -->
-                            <div class="flex-1 relative bg-gray-50 rounded-xl p-8 flex items-center justify-center min-h-[400px] border border-gray-100">
-                                <!-- Badge -->
-                                <div class="absolute top-4 left-4 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-2 z-10">
-                                    <i class="fas fa-check-circle text-emerald-400"></i>
-                                    <span>SIMTECH ASSURED</span>
-                                </div>
-                                <div class="absolute top-4 right-4 text-gray-400 hover:text-red-500 cursor-pointer transition-colors">
-                                    <i class="far fa-heart text-xl"></i>
-                                </div>
-                                
-                                <img id="main-image" src="<%= (monitor.imageUrls && monitor.imageUrls.length > 0) ? monitor.imageUrls[0] : '/images/default-monitor.png' %>" alt="<%= monitor.brand %> <%= monitor.model %>" class="max-w-full max-h-[350px] object-contain mix-blend-multiply transition-transform duration-300 hover:scale-105">
                             </div>
                         </div>
+                        <% } %>
 
-                        <!-- Mobile Thumbnails (Horizontal) -->
-                        <div class="flex gap-3 overflow-x-auto md:hidden pb-2 no-scrollbar">
-                            <% if(monitor.imageUrls && monitor.imageUrls.length > 0) { %>
-                                <% monitor.imageUrls.forEach((url, index) => { %>
-                                    <div class="flex-shrink-0 w-16 h-16 cursor-pointer border-2 <%= index === 0 ? 'border-emerald-500' : 'border-gray-200' %> rounded-lg overflow-hidden" onclick="changeImage('<%= url %>', this)">
-                                        <img src="<%= url %>" alt="Thumbnail" class="w-full h-full object-contain p-1">
-                                    </div>
-                                <% }) %>
-                            <% } %>
-                        </div>
-                        
-                        <!-- Warranty Info Banner -->
-                        <div class="bg-black text-white p-3 rounded-lg flex items-center justify-between text-xs sm:text-sm font-medium">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-gray-800 px-2 py-0.5 rounded">32</span>
-                                <span>Points Quality Check</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-emerald-400 font-bold">15</span>
-                                <span>Days Replacement</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-emerald-400 font-bold">06</span>
-                                <span>Months Warranty</span>
-                            </div>
-                        </div>
-
-                         <!-- Product Description (Moved to Left Column) -->
-                         <div class="mt-8 pt-6 border-t border-gray-100">
-                             <h3 class="font-bold text-gray-900 mb-3">Product Description</h3>
-                             <p class="text-gray-600 text-sm leading-relaxed">
-                                 <%= monitor.description %>
-                             </p>
-                         </div>
-                    </div>
-
-                    <!-- Right Column: Details -->
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-900 mb-2">
-                            <%= monitor.brand %> <%= monitor.model %> <%= monitor.specifications.display ? '(' + monitor.specifications.display + ')' : '' %> - Refurbished
-                        </h1>
-                        <p class="text-gray-500 text-sm mb-4">Simtech Warranty, Grade A, Refurbished Monitor</p>
-
-                        <!-- Rating -->
-                        <div class="flex items-center gap-2 mb-6">
-                            <span class="bg-emerald-600 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
-                                4.5 <i class="fas fa-star text-[10px]"></i>
-                            </span>
-                            <span class="text-sm text-gray-500">4 reviews</span>
-                        </div>
-
-                        <!-- Price Section -->
-                        <div class="mb-8">
-                            <div class="flex items-end gap-3 mb-1">
-                                <span class="text-3xl font-bold text-gray-900">₹<%= monitor.price.toLocaleString('en-IN') %></span>
-                                <span class="text-lg text-gray-500 line-through mb-1">₹<%= monitor.mrp.toLocaleString('en-IN') %></span>
-                                <span class="text-lg font-bold text-emerald-600 mb-1"><%= discountPercent %>% OFF</span>
-                            </div>
-                            <p class="text-xs text-gray-500">Inclusive of all taxes</p>
-                        </div>
-
-                        <!-- Key Specs (Highlights) -->
-                        <h3 class="font-bold text-gray-900 mb-4">Key Specifications</h3>
-                        <div class="grid grid-cols-2 gap-4 mb-8">
-                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm">
-                                    <i class="fas fa-desktop"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Display</p>
-                                    <p class="text-xs font-bold text-gray-900 truncate" title="<%= monitor.specifications.display %>"><%= monitor.specifications.display || 'Standard' %></p>
-                                </div>
-                            </div>
-                             <% if(monitor.specifications.os && monitor.specifications.os !== 'N/A') { %>
-                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-purple-600 shadow-sm">
-                                    <i class="fas fa-asterisk"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Features</p>
-                                    <p class="text-xs font-bold text-gray-900 truncate" title="<%= monitor.specifications.os %>"><%= monitor.specifications.os %></p>
-                                </div>
-                            </div>
-                            <% } %>
-                            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-emerald-600 shadow-sm">
-                                    <i class="fas fa-box-open"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Stock</p>
-                                    <p class="text-xs font-bold text-gray-900"><%= monitor.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' %></p>
-                                </div>
-                            </div>
-                             <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-orange-600 shadow-sm">
-                                    <i class="fas fa-tag"></i>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Condition</p>
-                                    <p class="text-xs font-bold text-gray-900">Refurbished - Excel..</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Purchase Actions -->
-                         <% if(monitor.stockQuantity > 0) { %>
-                        <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                             <button class="flex-1 bg-emerald-600 text-white font-bold py-3.5 rounded-xl hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-200">
-                                Buy Now
-                            </button>
-                            <button class="flex-1 bg-white text-gray-900 border-2 border-gray-200 font-bold py-3.5 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-colors">
-                                Add to Cart
-                            </button>
-                        </div>
-                         <% } else { %>
-                            <div class="w-full bg-red-50 text-red-600 font-bold py-3 rounded-xl border border-red-100 text-center mb-8">
-                                Out of Stock
-                            </div>
-                         <% } %>
-
-                         <!-- Why Buy From Us -->
-                         <div class="border-t border-gray-100 pt-6">
-                             <h4 class="text-sm font-bold text-gray-900 mb-4">Why Buy From Simtech?</h4>
-                             <div class="space-y-3">
-                                 <div class="flex items-center gap-3">
-                                     <i class="fas fa-shield-alt text-emerald-500 w-5 text-center"></i>
-                                     <span class="text-sm text-gray-600">6 Months Comprehensive Warranty</span>
-                                 </div>
-                                 <div class="flex items-center gap-3">
-                                     <i class="fas fa-truck text-emerald-500 w-5 text-center"></i>
-                                     <span class="text-sm text-gray-600">Free Shipping Across India</span>
-                                 </div>
-                                 <div class="flex items-center gap-3">
-                                     <i class="fas fa-undo text-emerald-500 w-5 text-center"></i>
-                                     <span class="text-sm text-gray-600">15 Days Easy Returns</span>
-                                 </div>
-                             </div>
-                         </div>
-
-                    </div>
                 </div>
-            </div>
-            
-             <!-- Similar Monitors Section -->
-            <% if(similarMonitors.length > 0) { %>
-            <div class="mt-16">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900">Similar Monitors</h2>
-                    <a href="/monitors" class="text-emerald-600 font-bold text-sm hover:underline">View All</a>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <% similarMonitors.forEach(similar => { %>
-                        <div class="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 group">
-                            <div class="relative aspect-[4/3] bg-gray-50 overflow-hidden">
-                                <img src="<%= (similar.imageUrls && similar.imageUrls.length > 0) ? similar.imageUrls[0] : '/images/default-monitor.png' %>" class="w-full h-full object-contain p-4 mix-blend-multiply group-hover:scale-105 transition-transform duration-500">
-                            </div>
-                            <div class="p-4">
-                                <p class="text-xs text-gray-500 mb-1"><%= similar.brand %></p>
-                                <h3 class="font-bold text-gray-900 mb-3 truncate"><%= similar.model %></h3>
-                                <div class="flex items-end justify-between">
-                                    <div>
-                                        <p class="text-xs text-gray-400 line-through">₹<%= similar.mrp.toLocaleString('en-IN') %></p>
-                                        <p class="text-lg font-bold text-gray-900">₹<%= similar.price.toLocaleString('en-IN') %></p>
-                                    </div>
-                                    <a href="/monitor/<%= similar._id %>" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-emerald-600 hover:text-white transition-colors">
-                                        <i class="fas fa-arrow-right text-xs"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    <% }) %>
-                </div>
-            </div>
-            <% } %>
+            </main>
 
-        </div>
-    </main>
+            <%- include('../partials/footer.ejs') %>
 
-    <%- include('../partials/footer.ejs') %>
-    
-    <script>
-        function changeImage(url, element) {
-            // Update main image src
-            document.getElementById('main-image').src = url;
-            
-            // Remove active border from all thumbnails
-            const thumbnails = document.querySelectorAll('.cursor-pointer');
-            thumbnails.forEach(thumb => {
-                thumb.classList.remove('border-emerald-500');
-                thumb.classList.add('border-gray-200');
-            });
-            
-            // Add active border to clicked thumbnail(s) - handling both desktop and mobile lists
-            // Since `element` is the clicked div, we can style it directly.
-            // But if we have duplicate lists (desktop/mobile), we might want to sync them.
-            // For simplicity, just style the clicked one.
-            element.classList.remove('border-gray-200');
-            element.classList.add('border-emerald-500');
-        }
-    </script>
-</body>
+                <script>
+                    function changeImage(url, element) {
+                        // Update main image src
+                        document.getElementById('main-image').src = url;
+
+                        // Remove active border from all thumbnails
+                        const thumbnails = document.querySelectorAll('.cursor-pointer');
+                        thumbnails.forEach(thumb => {
+                            thumb.classList.remove('border-cyan-500');
+                            thumb.classList.add('border-gray-200');
+                        });
+
+                        // Add active border to clicked thumbnail(s) - handling both desktop and mobile lists
+                        // Since `element` is the clicked div, we can style it directly.
+                        // But if we have duplicate lists (desktop/mobile), we might want to sync them.
+                        // For simplicity, just style the clicked one.
+                        element.classList.remove('border-gray-200');
+                        element.classList.add('border-cyan-500');
+                    }
+                </script>
+    </body>

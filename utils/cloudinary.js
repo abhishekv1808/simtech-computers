@@ -11,7 +11,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'simtech_laptops',
+        folder: 'rgcomputers_laptops',
         allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
     },
 });

@@ -1,272 +1,351 @@
-<%- include('../partials/head.ejs') %>
+﻿<%- include('../partials/head.ejs') %>
 
 
     <body>
 
         <%- include('../partials/navbar.ejs') %>
-        
-        <main class="bg-gray-50 min-h-screen pt-4 pb-12">
-            
-            <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <!-- Breadcrumb & Header -->
-                <div class="flex items-center justify-between mb-6">
-                    <nav class="flex text-sm text-gray-500">
-                        <a href="/" class="hover:text-emerald-600 transition-colors">Home</a>
-                        <span class="mx-2">/</span>
-                        <span class="text-gray-900 font-bold">Laptops</span>
-                    </nav>
 
-                    <div class="relative">
-                        <button class="flex items-center space-x-2 text-sm font-bold text-gray-700 bg-white border border-gray-200 px-4 py-2 rounded-lg hover:border-emerald-500 transition-colors">
-                            <span>SORT BY</span>
-                            <i class="fas fa-chevron-down text-xs"></i>
-                        </button>
+            <main class="bg-gray-50 min-h-screen pt-4 pb-12">
+
+                <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <!-- Breadcrumb & Header -->
+                    <div class="flex items-center justify-between mb-6">
+                        <nav class="flex text-sm text-gray-500">
+                            <a href="/" class="hover:text-cyan-600 transition-colors">Home</a>
+                            <span class="mx-2">/</span>
+                            <span class="text-gray-900 font-bold">Laptops</span>
+                        </nav>
+
+                        <div class="relative">
+                            <button
+                                class="flex items-center space-x-2 text-sm font-bold text-gray-700 bg-white border border-gray-200 px-4 py-2 rounded-lg hover:border-cyan-500 transition-colors">
+                                <span>SORT BY</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="flex flex-col lg:flex-row gap-8">
-                    
-                    <!-- SIDEBAR FILTERS -->
-                    <aside class="w-full lg:w-[280px] flex-shrink-0 h-fit lg:sticky lg:top-24">
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                            <div class="p-4 border-b border-gray-100 flex items-center justify-between">
-                                <span class="font-bold text-lg text-gray-900">Filters</span>
-                                <button class="text-sm text-emerald-600 font-bold hover:underline">Clear All</button>
-                            </div>
+                    <div class="flex flex-col lg:flex-row gap-8">
 
-                            <!-- Filter: Category -->
-                            <div class="p-4 border-b border-gray-100">
-                                <button class="flex items-center justify-between w-full font-bold text-gray-800 mb-3 group">
-                                    Product Type <i class="fas fa-chevron-up text-xs text-gray-400 group-hover:text-emerald-500"></i>
-                                </button>
-                                <div class="space-y-2">
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <div class="relative flex items-center">
-                                            <input type="checkbox" class="filter-category peer h-5 w-5 rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 transition-all checked:bg-emerald-500 checked:border-emerald-500" value="Standard Laptop">
-                                        </div>
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Standard Laptop</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-category rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="Corporate Series">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Corporate Series</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-category rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="Workstation">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Workstation</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-category rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="Gaming">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Gaming</span>
-                                    </label>
+                        <!-- SIDEBAR FILTERS -->
+                        <aside class="w-full lg:w-[280px] flex-shrink-0 h-fit lg:sticky lg:top-24">
+                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                                    <span class="font-bold text-lg text-gray-900">Filters</span>
+                                    <button class="text-sm text-cyan-600 font-bold hover:underline">Clear
+                                        All</button>
                                 </div>
-                            </div>
 
-                            <!-- Filter: Brand -->
-                            <div class="p-4 border-b border-gray-100">
-                                <button class="flex items-center justify-between w-full font-bold text-gray-800 mb-3 group">
-                                    Brand <i class="fas fa-chevron-up text-xs text-gray-400 group-hover:text-emerald-500"></i>
-                                </button>
-                                <div class="space-y-2">
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-brand rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="Apple">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Apple</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-brand rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="Dell">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Dell</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-brand rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="HP">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">HP</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-brand rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="Lenovo">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Lenovo</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Filter: Processor -->
-                            <div class="p-4 border-b border-gray-100">
-                                <button class="flex items-center justify-between w-full font-bold text-gray-800 mb-3 group">
-                                    Processor <i class="fas fa-chevron-up text-xs text-gray-400 group-hover:text-emerald-500"></i>
-                                </button>
-                                <div class="space-y-2">
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-processor rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="i3">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Intel Core i3</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-processor rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="i5">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Intel Core i5</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-processor rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="i7">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">Intel Core i7</span>
-                                    </label>
-                                    <label class="flex items-center space-x-3 cursor-pointer group">
-                                        <input type="checkbox" class="filter-processor rounded border-gray-300 text-emerald-500 focus:ring-emerald-500 h-5 w-5" value="m_series">
-                                        <span class="text-sm text-gray-600 group-hover:text-emerald-600 transition-colors font-medium">M1 / M2 / M3</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Filter: Price Range -->
-                            <div class="p-4">
-                                <button class="flex items-center justify-between w-full font-bold text-gray-800 mb-3">
-                                    Price Range
-                                </button>
-                                <div class="px-2">
-                                    <input type="range" id="price-range" min="10000" max="250000" step="5000" class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-500">
-                                    <div class="flex justify-between mt-2 text-sm text-gray-600 font-bold">
-                                        <span>₹10k</span>
-                                        <span id="price-value">₹2.5L</span>
+                                <!-- Filter: Category -->
+                                <div class="p-4 border-b border-gray-100">
+                                    <button
+                                        class="flex items-center justify-between w-full font-bold text-gray-800 mb-3 group">
+                                        Product Type <i
+                                            class="fas fa-chevron-up text-xs text-gray-400 group-hover:text-cyan-500"></i>
+                                    </button>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <div class="relative flex items-center">
+                                                <input type="checkbox"
+                                                    class="filter-category peer h-5 w-5 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 transition-all checked:bg-cyan-500 checked:border-cyan-500"
+                                                    value="Standard Laptop">
+                                            </div>
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Standard
+                                                Laptop</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-category rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="Corporate Series">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Corporate
+                                                Series</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-category rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="Workstation">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Workstation</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-category rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="Gaming">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Gaming</span>
+                                        </label>
                                     </div>
                                 </div>
+
+                                <!-- Filter: Brand -->
+                                <div class="p-4 border-b border-gray-100">
+                                    <button
+                                        class="flex items-center justify-between w-full font-bold text-gray-800 mb-3 group">
+                                        Brand <i
+                                            class="fas fa-chevron-up text-xs text-gray-400 group-hover:text-cyan-500"></i>
+                                    </button>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-brand rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="Apple">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Apple</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-brand rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="Dell">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Dell</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-brand rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="HP">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">HP</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-brand rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="Lenovo">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Lenovo</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Filter: Processor -->
+                                <div class="p-4 border-b border-gray-100">
+                                    <button
+                                        class="flex items-center justify-between w-full font-bold text-gray-800 mb-3 group">
+                                        Processor <i
+                                            class="fas fa-chevron-up text-xs text-gray-400 group-hover:text-cyan-500"></i>
+                                    </button>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-processor rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="i3">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Intel
+                                                Core i3</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-processor rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="i5">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Intel
+                                                Core i5</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-processor rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="i7">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">Intel
+                                                Core i7</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="checkbox"
+                                                class="filter-processor rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 h-5 w-5"
+                                                value="m_series">
+                                            <span
+                                                class="text-sm text-gray-600 group-hover:text-cyan-600 transition-colors font-medium">M1
+                                                / M2 / M3</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Filter: Price Range -->
+                                <div class="p-4">
+                                    <button
+                                        class="flex items-center justify-between w-full font-bold text-gray-800 mb-3">
+                                        Price Range
+                                    </button>
+                                    <div class="px-2">
+                                        <input type="range" id="price-range" min="10000" max="250000" step="5000"
+                                            class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+                                        <div class="flex justify-between mt-2 text-sm text-gray-600 font-bold">
+                                            <span>&#8377;10k</span>
+                                            <span id="price-value">&#8377;2.5L</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
+                        </aside>
 
-                        </div>
-                    </aside>
+                        <!-- PRODUCT LIST -->
+                        <div class="flex-1">
 
-                    <!-- PRODUCT LIST -->
-                    <div class="flex-1">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            
-<% if (laptops && laptops.length > 0) { %>
-                                <% laptops.forEach(laptop => { 
-                                    let processorValue = 'other';
-                                    
-                                    // Map backend category to frontend filter value
-                                    let categoryValue = 'Standard Laptop'; // Default
-                                    if (laptop.category) {
+                                <% if (laptops && laptops.length> 0) { %>
+                                    <% laptops.forEach(laptop=> {
+                                        let processorValue = 'other';
+
+                                        // Map backend category to frontend filter value
+                                        let categoryValue = 'Standard Laptop'; // Default
+                                        if (laptop.category) {
                                         if (laptop.category === 'Standard') categoryValue = 'Standard Laptop';
                                         else if (laptop.category === 'Corporate') categoryValue = 'Corporate Series';
                                         else categoryValue = laptop.category; // 'Workstation' and 'Gaming' match
-                                    }
+                                        }
 
-                                    if(laptop.specifications && laptop.specifications.processor) {
+                                        if(laptop.specifications && laptop.specifications.processor) {
                                         const proc = laptop.specifications.processor.toLowerCase();
                                         if (proc.includes('i3')) processorValue = 'i3';
                                         else if (proc.includes('i5')) processorValue = 'i5';
                                         else if (proc.includes('i7')) processorValue = 'i7';
-                                        else if (proc.includes('m1') || proc.includes('m2') || proc.includes('m3')) processorValue = 'm_series';
-                                    }
-                                    
-                                    const discount = laptop.mrp - laptop.price;
-                                    const discountPercent = Math.round((discount / laptop.mrp) * 100);
-                                %>
-                                <div class="product-card bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 flex flex-col relative group h-full" 
-                                     data-category="<%= categoryValue %>" 
-                                     data-brand="<%= laptop.brand %>" 
-                                     data-processor="<%= processorValue %>" 
-                                     data-price="<%= laptop.price %>">
-                                     <a href="/laptop/<%= laptop._id %>" class="absolute inset-0 z-10"></a>
-                                    
-                                    <!-- Header Badges -->
-                                    <div class="flex justify-between items-start w-full relative z-10 mb-2">
-                                        <div class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                                            <i class="fas fa-check-circle text-emerald-400 text-[10px]"></i>
-                                            <span>SIMTECH ASSURED</span>
-                                        </div>
-                                        <% if(laptop.stockQuantity < 5 && laptop.stockQuantity > 0) { %>
-                                        <div class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
-                                            <%= laptop.stockQuantity %> left
-                                        </div>
-                                        <% } %>
-                                    </div>
+                                        else if (proc.includes('m1') || proc.includes('m2') || proc.includes('m3'))
+                                        processorValue = 'm_series';
+                                        }
 
-                                    <!-- Image -->
-                                    <div class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
-                                        <% if (laptop.stockQuantity === 0) { %>
-                                            <div class="absolute top-3 left-1/2 -translate-x-1/2 bg-red-600/95 text-white text-sm font-bold px-4 py-1 rounded-md shadow-md -skew-x-6 transform pointer-events-none">
-                                                Out of Stock
+                                        const discount = laptop.mrp - laptop.price;
+                                        const discountPercent = Math.round((discount / laptop.mrp) * 100);
+                                        %>
+                                        <div class="product-card bg-white border border-gray-200 rounded-lg p-3 hover:shadow-lg transition-all duration-300 flex flex-col relative group h-full"
+                                            data-category="<%= categoryValue %>" data-brand="<%= laptop.brand %>"
+                                            data-processor="<%= processorValue %>" data-price="<%= laptop.price %>">
+                                            <a href="/laptop/<%= laptop._id %>" class="absolute inset-0 z-10"></a>
+
+                                            <!-- Header Badges -->
+                                            <div class="flex justify-between items-start w-full relative z-10 mb-2">
+                                                <div
+                                                    class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
+                                                    <i class="fas fa-check-circle text-cyan-400 text-[10px]"></i>
+                                                    <span>RG COMPUTERS ASSURED</span>
+                                                </div>
+                                                <% if(laptop.stockQuantity < 5 && laptop.stockQuantity> 0) { %>
+                                                    <div
+                                                        class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-0.5 rounded">
+                                                        <%= laptop.stockQuantity %> left
+                                                    </div>
+                                                    <% } %>
                                             </div>
-                                        <% } %>
-                                        <img src="<%= laptop.imageUrls[0] %>" alt="<%= laptop.brand %> <%= laptop.model %>" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
-                                    </div>
 
-                                    <!-- Discount Tag -->
-                                    <div class="mb-2">
-                                        <span class="bg-green-50 text-emerald-600 text-[10px] font-bold px-1.5 py-0.5 rounded">₹<%= discount.toLocaleString('en-IN') %> OFF</span>
-                                    </div>
+                                            <!-- Image -->
+                                            <div
+                                                class="relative w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+                                                <% if (laptop.stockQuantity===0) { %>
+                                                    <div
+                                                        class="absolute top-3 left-1/2 -translate-x-1/2 bg-red-600/95 text-white text-sm font-bold px-4 py-1 rounded-md shadow-md -skew-x-6 transform pointer-events-none">
+                                                        Out of Stock
+                                                    </div>
+                                                    <% } %>
+                                                        <img src="<%= laptop.imageUrls[0] %>"
+                                                            alt="<%= laptop.brand %> <%= laptop.model %>"
+                                                            class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">
+                                            </div>
 
-                                    <!-- Title -->
-                                    <h3 class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
-                                        <%= laptop.brand %> <%= laptop.model %> (<%= laptop.specifications.processor %>)
-                                    </h3>
+                                            <!-- Discount Tag -->
+                                            <div class="mb-2">
+                                                <span
+                                                    class="bg-green-50 text-cyan-600 text-[10px] font-bold px-1.5 py-0.5 rounded">&#8377;
+                                                    <%= discount.toLocaleString('en-IN') %> OFF</span>
+                                            </div>
 
-                                    <!-- Specs -->
-                                    <div class="flex flex-wrap gap-2 mb-3">
-                                        <% if(laptop.specifications.processor) { %>
-                                        <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.processor %></span>
-                                        <% } %>
-                                        <% if(laptop.specifications.ram) { %>
-                                        <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.ram %></span>
-                                        <% } %>
-                                        <% if(laptop.specifications.storage) { %>
-                                        <span class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded"><%= laptop.specifications.storage %></span>
-                                        <% } %>
-                                    </div>
+                                            <!-- Title -->
+                                            <h3
+                                                class="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 min-h-[40px]">
+                                                <%= laptop.brand %>
+                                                    <%= laptop.model %> (<%= laptop.specifications.processor %>)
+                                            </h3>
 
-                                    <!-- Rating Section -->
-                                    <div class="flex items-center gap-2 mb-3">
-                                        <span class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Certified</span>
-                                        <div class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
-                                            <span class="text-xs font-bold text-gray-700">5.0</span>
-                                            <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                            <!-- Specs -->
+                                            <div class="flex flex-wrap gap-2 mb-3">
+                                                <% if(laptop.specifications.processor) { %>
+                                                    <span
+                                                        class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">
+                                                        <%= laptop.specifications.processor %>
+                                                    </span>
+                                                    <% } %>
+                                                        <% if(laptop.specifications.ram) { %>
+                                                            <span
+                                                                class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">
+                                                                <%= laptop.specifications.ram %>
+                                                            </span>
+                                                            <% } %>
+                                                                <% if(laptop.specifications.storage) { %>
+                                                                    <span
+                                                                        class="bg-gray-100 text-gray-600 text-[10px] font-medium px-2 py-1 rounded">
+                                                                        <%= laptop.specifications.storage %>
+                                                                    </span>
+                                                                    <% } %>
+                                            </div>
+
+                                            <!-- Rating Section -->
+                                            <div class="flex items-center gap-2 mb-3">
+                                                <span
+                                                    class="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded">Certified</span>
+                                                <div
+                                                    class="border border-gray-200 px-1 py-0.5 rounded flex items-center gap-1">
+                                                    <span class="text-xs font-bold text-gray-700">5.0</span>
+                                                    <i class="fas fa-star text-yellow-400 text-[10px]"></i>
+                                                </div>
+                                            </div>
+
+                                            <!-- Price Section -->
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-red-500 text-sm font-medium">-<%= discountPercent %>
+                                                        %</span>
+                                                <span class="text-lg font-bold text-gray-900">&#8377;<%=
+                                                        laptop.price.toLocaleString('en-IN') %></span>
+                                                <span
+                                                    class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">&#8377;
+                                                    <%= laptop.mrp.toLocaleString('en-IN') %></span>
+                                            </div>
+
+                                            <form action="/cart" method="POST"
+                                                class="absolute bottom-4 right-4 z-20 transition-opacity duration-300">
+                                                <input type="hidden" name="productId" value="<%= laptop._id %>">
+                                                <button type="submit"
+                                                    class="w-10 h-10 rounded-full bg-cyan-500 text-white flex items-center justify-center hover:bg-cyan-600 shadow-lg hover:scale-110 transition-all"
+                                                    title="Add to Cart">
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </form>
                                         </div>
-                                    </div>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <div class="col-span-3 text-center py-10">
+                                                    <h3 class="text-xl font-bold text-gray-700">No laptops found</h3>
+                                                </div>
+                                                <% } %>
 
-                                    <!-- Price Section -->
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-red-500 text-sm font-medium">-<%= discountPercent %>%</span>
-                                        <span class="text-lg font-bold text-gray-900">₹<%= laptop.price.toLocaleString('en-IN') %></span>
-                                        <span class="text-xs text-gray-400 line-through text-decoration-line-through decoration-gray-400">₹<%= laptop.mrp.toLocaleString('en-IN') %></span>
-                                    </div>
-                                    
-                                    <form action="/cart" method="POST" class="absolute bottom-4 right-4 z-20 transition-opacity duration-300">
-                                        <input type="hidden" name="productId" value="<%= laptop._id %>">
-                                        <button type="submit" class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center hover:bg-emerald-600 shadow-lg hover:scale-110 transition-all" title="Add to Cart">
-                                            <i class="fas fa-cart-plus"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                                <% }) %>
-                            <% } else { %>
-                                <div class="col-span-3 text-center py-10">
-                                    <h3 class="text-xl font-bold text-gray-700">No laptops found</h3>
-                                </div>
-                            <% } %>
-                            
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
 
-        <%- include('../partials/footer.ejs') %>
+            <%- include('../partials/footer.ejs') %>
 
     </body>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Elements
             const priceRange = document.getElementById('price-range');
             const priceValue = document.getElementById('price-value');
             const productCards = document.querySelectorAll('.product-card');
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const clearBtn = document.querySelector('button.text-emerald-600'); // the "Clear All" button
+            const clearBtn = document.querySelector('button.text-cyan-600'); // the "Clear All" button
 
             // Initial price display
             const updatePriceDisplay = (val) => {
-                priceValue.textContent = `₹${parseInt(val).toLocaleString('en-IN')}`;
+                priceValue.textContent = `&#8377;${parseInt(val).toLocaleString('en-IN')}`;
             };
 
             // Filter Logic
             const filterProducts = () => {
                 const maxPrice = parseInt(priceRange.value);
-                
+
                 // Get checked values for each category
                 const checkedCategories = Array.from(document.querySelectorAll('.filter-category:checked')).map(cb => cb.value);
                 const checkedBrands = Array.from(document.querySelectorAll('.filter-brand:checked')).map(cb => cb.value);
@@ -305,7 +384,7 @@
                 cb.addEventListener('change', filterProducts);
             });
 
-            if(clearBtn) {
+            if (clearBtn) {
                 clearBtn.addEventListener('click', () => {
                     // Reset Checkboxes
                     checkboxes.forEach(cb => cb.checked = false);
@@ -321,4 +400,5 @@
             updatePriceDisplay(priceRange.value);
         });
     </script>
-</html>
+
+    </html>

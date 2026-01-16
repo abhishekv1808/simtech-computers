@@ -98,7 +98,7 @@ app.use((error, req, res, next) => {
   `);
 });
 
-const port = 3008;
+const port = 3009;
 
 mongoose.connect(mongodbURL).then(async (result) => {
     console.log("Connected to Mongodb");
@@ -108,11 +108,11 @@ mongoose.connect(mongodbURL).then(async (result) => {
     if (adminCount === 0) {
         const hashedPassword = await bcrypt.hash('password123', 12);
         const admin = new Admin({
-            email: 'admin@simtech.com',
+            email: 'admin@rgcomputers.in',
             password: hashedPassword
         });
         await admin.save();
-        console.log('Seeded Admin User: admin@simtech.com / password123');
+        console.log('Seeded Admin User: admin@rgcomputers.in / password123');
     }
 
     // Seed Blogs if not exists
@@ -135,7 +135,7 @@ mongoose.connect(mongodbURL).then(async (result) => {
                     <p class="mb-4">The keyboard is still the gold standard. For Linux users, this acts as the best host machine with excellent compatibility.</p>
                     
                     <h3 class="text-xl font-bold mb-2">Why Refurbished?</h3>
-                    <p class="mb-4">Buying these machines refurbished from SimTech can save you up to 40% while getting the same performance. All our units are quality tested.</p>
+                    <p class="mb-4">Buying these machines refurbished from RG Computers can save you up to 40% while getting the same performance. All our units are quality tested.</p>
                 `,
                 imageUrl: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=600"
             },
@@ -168,7 +168,7 @@ mongoose.connect(mongodbURL).then(async (result) => {
                     <h3 class="text-xl font-bold mb-2">Windows on ARM</h3>
                     <p class="mb-4">Qualcomm is finally catching up. The new Snapdragon chips for Windows are promising similar battery life and performance, challenging the Wintel monopoly.</p>
                     
-                    <p class="mb-4">At SimTech, we stock a wide range of both x86 and ARM-based laptops to suit your workflow.</p>
+                    <p class="mb-4">At RG Computers, we stock a wide range of both x86 and ARM-based laptops to suit your workflow.</p>
                 `,
                 imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600"
             }

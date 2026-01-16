@@ -1,4 +1,4 @@
-
+﻿
     <!-- Product Details Modal -->
     <div id="productModal" class="relative z-[200] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         
@@ -141,7 +141,7 @@
             const category = laptop.category || 'Standard';
             document.getElementById('modal-id').innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 mr-2 border border-blue-100">${category}</span> <span class="text-gray-400">SKU: ${laptop._id}</span>`;
 
-            document.getElementById('modal-price').textContent = `₹${laptop.price.toLocaleString('en-IN')}`;
+            document.getElementById('modal-price').textContent = `&#8377;${laptop.price.toLocaleString('en-IN')}`;
             document.getElementById('modal-desc').textContent = laptop.description;
             
             // Edit Button Link

@@ -1,218 +1,278 @@
-<%- include('../partials/head.ejs') %>
+﻿<%- include('../partials/head.ejs') %>
 
-<body class="bg-gray-50 font-['Urbanist'] text-gray-800 antialiased overflow-x-hidden selection:bg-emerald-100 selection:text-emerald-700">
+    <body
+        class="bg-gray-50 font-['Urbanist'] text-gray-800 antialiased overflow-x-hidden selection:bg-cyan-100 selection:text-cyan-700">
 
-    <%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/navbar.ejs') %>
 
-    <!-- Hero Section -->
-    <section class="relative bg-[#20B2AA] overflow-hidden pt-32 pb-20">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 z-0">
-             <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-[#1EA89F] rounded-full blur-3xl opacity-50 animate-pulse"></div>
-             <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-emerald-400 rounded-full blur-3xl opacity-30"></div>
-        </div>
-
-        <div class="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-             <span class="inline-block py-1 px-3 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm shadow-lg">
-                We're here to help
-             </span>
-             <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-8 drop-shadow-sm font-['Urbanist']">
-                Need the Perfect Laptop?
-             </h1>
-             <p class="text-lg md:text-xl text-emerald-50 max-w-2xl mx-auto leading-relaxed font-medium opacity-95">
-                Whether you need a high-performance workstation or a budget-friendly student laptop, our experts will help you find the best match.
-             </p>
-        </div>
-    </section>
-
-    <!-- Content Split -->
-    <section class="py-12 lg:py-16 -mt-10 relative z-20">
-        <div class="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                
-                <!-- Left: Contact Info & Map -->
-                <div class="lg:col-span-5 space-y-6">
-                    
-                    <!-- Quick Contact Card -->
-                    <div class="bg-white rounded-[32px] p-8 shadow-xl shadow-gray-200/50 border border-gray-100 h-fit">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center font-['Urbanist']">
-                            <i class="fas fa-headset text-[#20B2AA] mr-3"></i> Get in Touch
-                        </h3>
-                        <div class="space-y-6">
-                            <div class="flex items-start group">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-emerald-50 text-[#20B2AA] flex items-center justify-center text-xl group-hover:bg-[#20B2AA] group-hover:text-white transition-all duration-300">
-                                    <i class="fas fa-phone-alt"></i>
-                                </div>
-                                <div class="ml-5">
-                                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Call Us Directly</p>
-                                    <p class="text-lg font-bold text-gray-900 hover:text-[#20B2AA] transition-colors cursor-pointer">+91 98765 43210</p>
-                                    <p class="text-sm text-gray-500">Mon-Sat, 10am - 8pm</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start group">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="ml-5">
-                                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Email Support</p>
-                                    <p class="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors cursor-pointer">sales@simtech.com</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start group">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
-                                <div class="ml-5">
-                                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Visit Store</p>
-                                    <p class="text-base font-bold text-gray-900 leading-snug">680/58, 30th Cross, Swagath Rd,<br>4th T Block East, Jayanagar,<br>Bengaluru 560041</p>
-                                    <a href="#" class="inline-flex items-center text-sm font-bold text-purple-600 mt-1 hover:underline">
-                                        Get Directions <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Hero Section -->
+            <section class="relative bg-[#20B2AA] overflow-hidden pt-32 pb-20">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 z-0">
+                    <div
+                        class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-[#1EA89F] rounded-full blur-3xl opacity-50 animate-pulse">
                     </div>
-
-                    <!-- Map Placehoder -->
-                    <div class="h-64 bg-gray-200 rounded-[32px] overflow-hidden shadow-inner relative group border border-gray-200/50">
-                        <!-- Simulated Map UI -->
-                        <div class="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=Bangalore&zoom=13&size=600x300&maptype=roadmap&key=YOUR_API_KEY_HERE')] bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity"></div>
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="bg-white/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg flex items-center transform group-hover:scale-110 transition-transform border border-gray-100/50">
-                                <i class="fas fa-map-pin text-[#20B2AA] mr-2 animate-bounce"></i>
-                                <span class="font-bold text-gray-800 text-sm">Find us on Maps</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Right: Requirement Form -->
-                <div class="lg:col-span-7">
-                    <div class="bg-white rounded-[32px] shadow-2xl shadow-gray-200/50 p-8 md:p-10 border border-gray-100 relative overflow-hidden">
-                        
-                        <!-- Decorative bg element -->
-                        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-emerald-50 rounded-full blur-3xl opacity-60"></div>
-
-                        <h2 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 font-['Urbanist']">Send your Requirement</h2>
-                        <p class="text-gray-500 mb-8 relative z-10">Tell us what you're looking for, and we'll suggest the best machines for your budget.</p>
-
-                        <form action="#" method="POST" class="space-y-6 relative z-10">
-                            
-                            <!-- Personal Info Grid -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="text-sm font-bold text-gray-700 ml-1">Your Name</label>
-                                    <input type="text" class="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#20B2AA]/10 focus:border-[#20B2AA] transition-all outline-none" placeholder="John Doe">
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-sm font-bold text-gray-700 ml-1">Phone Number</label>
-                                    <input type="tel" class="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#20B2AA]/10 focus:border-[#20B2AA] transition-all outline-none" placeholder="+91 98765 43210">
-                                </div>
-                            </div>
-
-                            <!-- Usage Type Selection -->
-                            <div class="space-y-3">
-                                <label class="text-sm font-bold text-gray-700 ml-1">Primary Usage</label>
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="usage" class="peer hidden" checked>
-                                        <div class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-100 bg-white hover:bg-gray-50 peer-checked:border-[#20B2AA] peer-checked:bg-emerald-50/50 transition-all text-center h-full shadow-sm hover:shadow-md">
-                                            <i class="fas fa-briefcase text-xl mb-2 text-gray-400 peer-checked:text-[#20B2AA]"></i>
-                                            <span class="text-xs font-bold text-gray-600 peer-checked:text-[#20B2AA]">Business</span>
-                                        </div>
-                                    </label>
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="usage" class="peer hidden">
-                                        <div class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-100 bg-white hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:bg-blue-50/50 transition-all text-center h-full shadow-sm hover:shadow-md">
-                                            <i class="fas fa-code text-xl mb-2 text-gray-400 peer-checked:text-blue-600"></i>
-                                            <span class="text-xs font-bold text-gray-600 peer-checked:text-blue-800">Coding</span>
-                                        </div>
-                                    </label>
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="usage" class="peer hidden">
-                                        <div class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-100 bg-white hover:bg-gray-50 peer-checked:border-purple-500 peer-checked:bg-purple-50/50 transition-all text-center h-full shadow-sm hover:shadow-md">
-                                            <i class="fas fa-gamepad text-xl mb-2 text-gray-400 peer-checked:text-purple-600"></i>
-                                            <span class="text-xs font-bold text-gray-600 peer-checked:text-purple-800">Gaming</span>
-                                        </div>
-                                    </label>
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="usage" class="peer hidden">
-                                        <div class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-100 bg-white hover:bg-gray-50 peer-checked:border-orange-500 peer-checked:bg-orange-50/50 transition-all text-center h-full shadow-sm hover:shadow-md">
-                                            <i class="fas fa-graduation-cap text-xl mb-2 text-gray-400 peer-checked:text-orange-600"></i>
-                                            <span class="text-xs font-bold text-gray-600 peer-checked:text-orange-800">Student</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Budget Range Slider -->
-                            <div class="space-y-3">
-                                <div class="flex justify-between items-center">
-                                    <label class="text-sm font-bold text-gray-700 ml-1">Budget Range</label>
-                                    <span class="text-[#20B2AA] font-bold bg-emerald-50 px-2 py-1 rounded text-sm">₹<span id="budget-display">30,000</span></span>
-                                </div>
-                                <input type="range" min="10000" max="150000" step="5000" value="30000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#20B2AA]" oninput="document.getElementById('budget-display').innerText = parseInt(this.value).toLocaleString('en-IN')">
-                                <div class="flex justify-between text-xs text-gray-400 font-medium px-1">
-                                    <span>₹10k</span>
-                                    <span>₹1.5L+</span>
-                                </div>
-                            </div>
-
-                            <!-- Additional Requirements -->
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold text-gray-700 ml-1">Specific Requirements</label>
-                                <textarea rows="3" class="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#20B2AA]/10 focus:border-[#20B2AA] transition-all outline-none resize-none" placeholder="E.g. I need 16GB RAM minimum, backlit keyboard preferred..."></textarea>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit" class="w-full bg-[#20B2AA] hover:bg-teal-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-teal-500/30 active:scale-[0.98] transition-all flex items-center justify-center group text-lg">
-                                <span>Get Expert Suggestion</span>
-                                <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
-                            </button>
-
-                        </form>
+                    <div
+                        class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-cyan-400 rounded-full blur-3xl opacity-30">
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </section>
+                <div class="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <span
+                        class="inline-block py-1 px-3 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm shadow-lg">
+                        We're here to help
+                    </span>
+                    <h1
+                        class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-8 drop-shadow-sm font-['Urbanist']">
+                        Need the Perfect Laptop?
+                    </h1>
+                    <p
+                        class="text-lg md:text-xl text-cyan-50 max-w-2xl mx-auto leading-relaxed font-medium opacity-95">
+                        Whether you need a high-performance workstation or a budget-friendly student laptop, our experts
+                        will help you find the best match.
+                    </p>
+                </div>
+            </section>
 
-    <!-- FAQ Section -->
-    <section class="bg-gray-100/50 py-16 border-t border-gray-200">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-2xl font-bold text-center text-gray-900 mb-10 font-['Urbanist']">Common Questions</h2>
-            <div class="space-y-4">
-                <details class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <summary class="flex justify-between items-center p-5 cursor-pointer list-none">
-                        <span class="font-bold text-gray-800">Do you provide warranty on used laptops?</span>
-                        <span class="transition group-open:rotate-180">
-                            <i class="fas fa-chevron-down text-gray-400"></i>
-                        </span>
-                    </summary>
-                    <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                        Yes! All our "Simtech Assured" laptops come with a minimum 6-month warranty on hardware. We also provide a 7-day checking warranty for complete peace of mind.
+            <!-- Content Split -->
+            <section class="py-12 lg:py-16 -mt-10 relative z-20">
+                <div class="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+
+                        <!-- Left: Contact Info & Map -->
+                        <div class="lg:col-span-5 space-y-6">
+
+                            <!-- Quick Contact Card -->
+                            <div
+                                class="bg-white rounded-[32px] p-8 shadow-xl shadow-gray-200/50 border border-gray-100 h-fit">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center font-['Urbanist']">
+                                    <i class="fas fa-headset text-[#20B2AA] mr-3"></i> Get in Touch
+                                </h3>
+                                <div class="space-y-6">
+                                    <div class="flex items-start group">
+                                        <div
+                                            class="flex-shrink-0 w-12 h-12 rounded-2xl bg-cyan-50 text-[#20B2AA] flex items-center justify-center text-xl group-hover:bg-[#20B2AA] group-hover:text-white transition-all duration-300">
+                                            <i class="fas fa-phone-alt"></i>
+                                        </div>
+                                        <div class="ml-5">
+                                            <p class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Call
+                                                Us Directly</p>
+                                            <p
+                                                class="text-lg font-bold text-gray-900 hover:text-[#20B2AA] transition-colors cursor-pointer">
+                                                +91 88610 88839</p>
+                                            <p class="text-sm text-gray-500">Mon-Sat, 10am - 8pm</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start group">
+                                        <div
+                                            class="flex-shrink-0 w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="ml-5">
+                                            <p class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Email
+                                                Support</p>
+                                            <p
+                                                class="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors cursor-pointer">
+                                                contact@rgcomputers.in</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start group">
+                                        <div
+                                            class="flex-shrink-0 w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="ml-5">
+                                            <p class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Visit
+                                                Store</p>
+                                            <p class="text-base font-bold text-gray-900 leading-snug">#21, Ejipura Main
+                                                Rd, near 23rd Cross Road,<br>Ejipura, Bengaluru, Karnataka 560047</p>
+                                            <a href="#"
+                                                class="inline-flex items-center text-sm font-bold text-purple-600 mt-1 hover:underline">
+                                                Get Directions <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Map Placehoder -->
+                            <div
+                                class="h-64 bg-gray-200 rounded-[32px] overflow-hidden shadow-inner relative group border border-gray-200/50">
+                                <!-- Simulated Map UI -->
+                                <div
+                                    class="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=Bangalore&zoom=13&size=600x300&maptype=roadmap&key=YOUR_API_KEY_HERE')] bg-cover bg-center opacity-70 group-hover:opacity-90 transition-opacity">
+                                </div>
+                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div
+                                        class="bg-white/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg flex items-center transform group-hover:scale-110 transition-transform border border-gray-100/50">
+                                        <i class="fas fa-map-pin text-[#20B2AA] mr-2 animate-bounce"></i>
+                                        <span class="font-bold text-gray-800 text-sm">Find us on Maps</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right: Requirement Form -->
+                        <div class="lg:col-span-7">
+                            <div
+                                class="bg-white rounded-[32px] shadow-2xl shadow-gray-200/50 p-8 md:p-10 border border-gray-100 relative overflow-hidden">
+
+                                <!-- Decorative bg element -->
+                                <div
+                                    class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-cyan-50 rounded-full blur-3xl opacity-60">
+                                </div>
+
+                                <h2 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 font-['Urbanist']">Send
+                                    your Requirement</h2>
+                                <p class="text-gray-500 mb-8 relative z-10">Tell us what you're looking for, and we'll
+                                    suggest the best machines for your budget.</p>
+
+                                <form action="#" method="POST" class="space-y-6 relative z-10">
+
+                                    <!-- Personal Info Grid -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-bold text-gray-700 ml-1">Your Name</label>
+                                            <input type="text"
+                                                class="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#20B2AA]/10 focus:border-[#20B2AA] transition-all outline-none"
+                                                placeholder="John Doe">
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-bold text-gray-700 ml-1">Phone Number</label>
+                                            <input type="tel"
+                                                class="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#20B2AA]/10 focus:border-[#20B2AA] transition-all outline-none"
+                                                placeholder="+91 98765 43210">
+                                        </div>
+                                    </div>
+
+                                    <!-- Usage Type Selection -->
+                                    <div class="space-y-3">
+                                        <label class="text-sm font-bold text-gray-700 ml-1">Primary Usage</label>
+                                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="usage" class="peer hidden" checked>
+                                                <div
+                                                    class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-100 bg-white hover:bg-gray-50 peer-checked:border-[#20B2AA] peer-checked:bg-cyan-50/50 transition-all text-center h-full shadow-sm hover:shadow-md">
+                                                    <i
+                                                        class="fas fa-briefcase text-xl mb-2 text-gray-400 peer-checked:text-[#20B2AA]"></i>
+                                                    <span
+                                                        class="text-xs font-bold text-gray-600 peer-checked:text-[#20B2AA]">Business</span>
+                                                </div>
+                                            </label>
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="usage" class="peer hidden">
+                                                <div
+                                                    class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-100 bg-white hover:bg-gray-50 peer-checked:border-blue-500 peer-checked:bg-blue-50/50 transition-all text-center h-full shadow-sm hover:shadow-md">
+                                                    <i
+                                                        class="fas fa-code text-xl mb-2 text-gray-400 peer-checked:text-blue-600"></i>
+                                                    <span
+                                                        class="text-xs font-bold text-gray-600 peer-checked:text-blue-800">Coding</span>
+                                                </div>
+                                            </label>
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="usage" class="peer hidden">
+                                                <div
+                                                    class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-100 bg-white hover:bg-gray-50 peer-checked:border-purple-500 peer-checked:bg-purple-50/50 transition-all text-center h-full shadow-sm hover:shadow-md">
+                                                    <i
+                                                        class="fas fa-gamepad text-xl mb-2 text-gray-400 peer-checked:text-purple-600"></i>
+                                                    <span
+                                                        class="text-xs font-bold text-gray-600 peer-checked:text-purple-800">Gaming</span>
+                                                </div>
+                                            </label>
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="usage" class="peer hidden">
+                                                <div
+                                                    class="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-100 bg-white hover:bg-gray-50 peer-checked:border-orange-500 peer-checked:bg-orange-50/50 transition-all text-center h-full shadow-sm hover:shadow-md">
+                                                    <i
+                                                        class="fas fa-graduation-cap text-xl mb-2 text-gray-400 peer-checked:text-orange-600"></i>
+                                                    <span
+                                                        class="text-xs font-bold text-gray-600 peer-checked:text-orange-800">Student</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Budget Range Slider -->
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-center">
+                                            <label class="text-sm font-bold text-gray-700 ml-1">Budget Range</label>
+                                            <span
+                                                class="text-[#20B2AA] font-bold bg-cyan-50 px-2 py-1 rounded text-sm">&#8377;<span
+                                                    id="budget-display">30,000</span></span>
+                                        </div>
+                                        <input type="range" min="10000" max="150000" step="5000" value="30000"
+                                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#20B2AA]"
+                                            oninput="document.getElementById('budget-display').innerText = parseInt(this.value).toLocaleString('en-IN')">
+                                        <div class="flex justify-between text-xs text-gray-400 font-medium px-1">
+                                            <span>&#8377;10k</span>
+                                            <span>&#8377;1.5L+</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Additional Requirements -->
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-bold text-gray-700 ml-1">Specific
+                                            Requirements</label>
+                                        <textarea rows="3"
+                                            class="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-[#20B2AA]/10 focus:border-[#20B2AA] transition-all outline-none resize-none"
+                                            placeholder="E.g. I need 16GB RAM minimum, backlit keyboard preferred..."></textarea>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <button type="submit"
+                                        class="w-full bg-[#20B2AA] hover:bg-teal-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-teal-500/30 active:scale-[0.98] transition-all flex items-center justify-center group text-lg">
+                                        <span>Get Expert Suggestion</span>
+                                        <i
+                                            class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
+                                    </button>
+
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
-                </details>
-                <details class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <summary class="flex justify-between items-center p-5 cursor-pointer list-none">
-                        <span class="font-bold text-gray-800">Can I upgrade the RAM/SSD before buying?</span>
-                        <span class="transition group-open:rotate-180">
-                            <i class="fas fa-chevron-down text-gray-400"></i>
-                        </span>
-                    </summary>
-                    <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">
-                        Absolutely. Most of our Windows laptops are upgradeable. Mention your requirement in the form above, and we will quote you the price with the upgraded specs.
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="bg-gray-100/50 py-16 border-t border-gray-200">
+                <div class="max-w-4xl mx-auto px-6">
+                    <h2 class="text-2xl font-bold text-center text-gray-900 mb-10 font-['Urbanist']">Common Questions
+                    </h2>
+                    <div class="space-y-4">
+                        <details class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <summary class="flex justify-between items-center p-5 cursor-pointer list-none">
+                                <span class="font-bold text-gray-800">Do you provide warranty on used laptops?</span>
+                                <span class="transition group-open:rotate-180">
+                                    <i class="fas fa-chevron-down text-gray-400"></i>
+                                </span>
+                            </summary>
+                            <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+                                Yes! All our "RG Computers Assured" laptops come with a minimum 6-month warranty on
+                                hardware. We also provide a 7-day checking warranty for complete peace of mind.
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <summary class="flex justify-between items-center p-5 cursor-pointer list-none">
+                                <span class="font-bold text-gray-800">Can I upgrade the RAM/SSD before buying?</span>
+                                <span class="transition group-open:rotate-180">
+                                    <i class="fas fa-chevron-down text-gray-400"></i>
+                                </span>
+                            </summary>
+                            <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">
+                                Absolutely. Most of our Windows laptops are upgradeable. Mention your requirement in the
+                                form above, and we will quote you the price with the upgraded specs.
+                            </div>
+                        </details>
                     </div>
-                </details>
-            </div>
-        </div>
-    </section>
+                </div>
+            </section>
 
-    <%- include('../partials/footer.ejs') %>
+            <%- include('../partials/footer.ejs') %>
 
-</body>
-</html>
+    </body>
+
+    </html>

@@ -4,14 +4,16 @@ const Blog = require('../models/blog');
 
 exports.getHome = async (req, res, next) => {
     try {
-        const laptops = await Laptop.find({ category: { $ne: 'Monitor' } }).sort({ createdAt: -1 }).limit(8);
+        const laptops = await Laptop.find({ category: { $nin: ['Monitor', 'Desktop'] } }).sort({ createdAt: -1 }).limit(8);
         const monitors = await Laptop.find({ category: 'Monitor' }).sort({ createdAt: -1 }).limit(4);
+        const desktops = await Laptop.find({ category: 'Desktop' }).sort({ createdAt: -1 }).limit(4);
         const blogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
 
         res.render('../views/user/home', {
             pageTitle: 'Home',
             laptops: laptops,
             monitors: monitors,
+            desktops: desktops,
             blogs: blogs
         });
     } catch (err) {
@@ -20,6 +22,7 @@ exports.getHome = async (req, res, next) => {
             pageTitle: 'Home',
             laptops: [],
             monitors: [],
+            desktops: [],
             blogs: []
         });
     }
@@ -145,7 +148,7 @@ exports.getProductDetail = async (req, res, next) => {
         const discountPercent = Math.round((discount / laptop.mrp) * 100);
 
         res.render('../views/user/product-detail', {
-            pageTitle: `${laptop.brand} ${laptop.model} | SimTech Computers`,
+            pageTitle: `${laptop.brand} ${laptop.model} | RG Computers`,
             laptop: laptop,
             similarLaptops: similarLaptops,
             discount: discount,
@@ -271,7 +274,7 @@ exports.postCheckout = async (req, res, next) => {
         message += `\nTotal: ₹${cart.totalPrice}`;
 
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/919876543210?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/918861088839?text=${encodedMessage}`;
 
         res.redirect(whatsappUrl);
     } catch (err) {
